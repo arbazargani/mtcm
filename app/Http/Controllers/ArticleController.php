@@ -7,6 +7,7 @@ use App\Category;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -19,16 +20,24 @@ class ArticleController extends Controller
         if ($request['publish']) {
             $request->validate([
                 'title' => 'required|min:1|max:400',
-                'content' => 'required|min:1'
+                'content' => 'required|min:1',
+                'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
+
+            $coverURL = 'ghost.jpg';
+            if ($request->hasFile('cover')) {
+                $coverURL = time().'.'.$request->cover->extension();
+                $request->cover->move(public_path('/uploads/images/cover'), $coverURL);
+            }
+
             $article = new Article();
             $article->title = $request['title'];
             $article->content = $request['content'];
-            // $article->category_id = 0;
+            $article->cover = $coverURL;
             $article->user_id = Auth::id();
             $article->save();
             $article->category()->attach($request['categories']);
-            $article->tag()->attach($request['tags']);;
+            $article->tag()->attach($request['tags']);
         }
         if ($request['draft']) {
             return 'drafted.';

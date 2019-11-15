@@ -8,7 +8,8 @@
 <div class="uk-padding-small" uk-grid>
     <div class="uk-article uk-width-3-4@m">
       <article class="article uk-padding">
-        <img class="uk-align-center" src="https://picsum.photos/800/300?grayscale" alt="cover">
+{{--        <img class="uk-align-center" src="https://picsum.photos/800/300?grayscale" alt="cover">--}}
+            <img class="uk-align-center" src="{{ asset('/uploads/images/cover/'.$article[0]->cover ) }}" alt="cover">
         <h1 class="uk-article-title">{{ $article[0]->title }}</h1>
         <p class="uk-article-meta">
           <span>

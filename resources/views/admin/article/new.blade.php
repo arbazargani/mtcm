@@ -18,7 +18,7 @@
                     @endforeach
                 </div>
             @endif
-            <form class="uk-grid-small uk-position-relative uk-grid" uk-grid action="{{ route('Article > Submit') }}" method="POST">
+            <form class="uk-grid-small uk-position-relative uk-grid" uk-grid action="{{ route('Article > Submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="uk-width-2-3@m">
                     <div class="uk-inline uk-width-1-1 uk-first-column uk-margin-small-bottom">
@@ -50,6 +50,10 @@
                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <hr class="uk-divider-icon">
+                    <div class="uk-container">
+                        <input type="file" name="cover" id="cover">
                     </div>
                 </div>
             </form>
