@@ -53,6 +53,7 @@
                     </div>
                     <hr class="uk-divider-icon">
                     <div class="uk-container">
+                        <h4 class="uk-h4 tm-heading-fragment">تصویر نوشته</h4>
                         <input type="file" name="cover" id="cover">
                     </div>
                 </div>

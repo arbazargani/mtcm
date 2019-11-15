@@ -24,16 +24,24 @@ class ArticleController extends Controller
                 'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
-            $coverURL = 'ghost.jpg';
+            $fileName = 'ghost.jpg';
             if ($request->hasFile('cover')) {
-                $coverURL = time().'.'.$request->cover->extension();
-                $request->cover->move(public_path('/uploads/images/cover'), $coverURL);
+                // Get filename.extention
+                $image = $request->file('cover')->getClientOriginalName();
+                // Get just file name
+                $imageName = pathinfo($image, PATHINFO_FILENAME);
+                // Get just file extention
+                $imageExtention = $request->file('cover')->getClientOriginalExtension();
+                // Make unique file name
+                $fileName = $imageName.'_'.time().'.'.$imageExtention;
+                // Store for public uses
+                $path = $request->file('cover')->storeAs('public/uploads/articles/images', $fileName);
             }
 
             $article = new Article();
             $article->title = $request['title'];
             $article->content = $request['content'];
-            $article->cover = $coverURL;
+            $article->cover = $fileName;
             $article->user_id = Auth::id();
             $article->save();
             $article->category()->attach($request['categories']);
@@ -67,18 +75,37 @@ class ArticleController extends Controller
     public function Update(Request $request, $id) {
         $request->validate([
             'title' => 'required|min:1|max:400',
-            'content' => 'required|min:1|'
+            'content' => 'required|min:1|',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($request->hasFile('cover')) {
+            // Get filename.extention
+            $image = $request->file('cover')->getClientOriginalName();
+            // Get just file name
+            $imageName = pathinfo($image, PATHINFO_FILENAME);
+            // Get just file extention
+            $imageExtention = $request->file('cover')->getClientOriginalExtension();
+            // Make unique file name
+            $fileName = $imageName.'_'.time().'.'.$imageExtention;
+            // Store for public uses
+            $path = $request->file('cover')->storeAs('public/uploads/articles/images', $fileName);
+        }
+
         $article = Article::find($id);
         $article->title = $request['title'];
         $article->content = $request['content'];
+        $article->cover = $fileName;
         $article->save();
         $article->category()->sync($request['categories']);
         $article->tag()->sync($request['tags']);
         return redirect(route('Article > Edit', $id));
     }
     public function Delete($id) {
-        $article = Article::find($id)->delete();
+        // $article = Article::find($id)->delete();
+        $article = Article::find($id);
+        Storage::delete('public/uploads/articles/images/'.$article->cover);
+        $article->delete();
         return back();
     }
 }
