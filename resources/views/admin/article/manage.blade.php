@@ -23,6 +23,8 @@
                     <tr>
                         <th>عنوان مقاله</th>
                         <th>تاریخ انتشار</th>
+                        <th>دسته‌بندی</th>
+                        <th>برچسب‌ها</th>
                         <th>ویرایش</th>
                         <th>حذف</th>
                         <th>بازدید</th>
@@ -32,6 +34,8 @@
                     <tr>
                         <td>عنوان مقاله</td>
                         <td>تاریخ انتشار</td>
+                        <th>دسته‌بندی</th>
+                        <th>برچسب‌ها</th>
                         <th>ویرایش</th>
                         <th>حذف</th>
                         <th>بازدید</th>
@@ -42,6 +46,8 @@
                         <tr>
                             <td>{{ $article->title }}</td>
                             <td>{{ $article->created_at }}</td>
+                            <td>@foreach($article->category as $category) <a href="{{ route('Category > Archive', $category->slug) }}" class="uk-text-meta">{{ $category->name }}@if(!$loop->last) {{', '}} @endif</a> @endforeach</td>
+                            <td>@foreach($article->tag as $tag) <a href="{{ route('Tag > Archive', $tag->slug) }}" class="uk-text-meta">{{ $tag->name }}@if(!$loop->last) {{', '}} @endif</a>@endforeach</td>
                             <td>
                                 <a href="{{ route('Article > Edit', $article->id) }}">
                                     <button class="uk-button uk-button-small uk-button-primary">ویرایش</button>

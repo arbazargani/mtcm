@@ -95,7 +95,9 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $article->title = $request['title'];
         $article->content = $request['content'];
-        $article->cover = $fileName;
+        if ($request->hasFile('cover')) {
+            $article->cover = $fileName;
+        }
         $article->save();
         $article->category()->sync($request['categories']);
         $article->tag()->sync($request['tags']);

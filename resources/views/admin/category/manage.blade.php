@@ -65,7 +65,7 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <a href="{{ route('Category > Archive', $category->slug) }}">بازدید</a>
+                                        <a href="{{ route('Category > Archive', $category->slug) }}">بازدید ({{ count($category->article) }})</a>
                                     </td>
                                 </tr>
                             @endforeach
