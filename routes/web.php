@@ -26,7 +26,7 @@ Route::get('/category/{slug}', 'CategoryController@Archive')->name('Category > A
 
 Route::get('/author/{username}', 'UserController@Archive')->name('User > Archive');
 
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware('auth', 'HasAdminAccess')->group(function () {
 	Route::get('/', 'AdminController@Index')->name('Admin');
 
     Route::get('profile', 'AdminController@Profile')->name('Profile');
