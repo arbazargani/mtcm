@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Category;
+use App\Tag;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         $categories = Category::all();
-        view()->share('categories', $categories);
+        $tags = Tag::all();
+        view()->share(['categories'=> $categories, 'tags' => $tags]);
     }
 }

@@ -24,7 +24,7 @@ class ArticleController extends Controller
                 'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
-            $fileName = 'ghost.jpg';
+            $fileName = 'ghost.png';
             if ($request->hasFile('cover')) {
                 // Get filename.extention
                 $image = $request->file('cover')->getClientOriginalName();
