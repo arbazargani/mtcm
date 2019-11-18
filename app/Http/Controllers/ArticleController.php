@@ -69,8 +69,8 @@ class ArticleController extends Controller
     public function Show($slug)
     {
         $article = Article::where('slug', '=', $slug)->get();
-        if (!count($article)) {
-            return abort('404');
+        if (!count($article) || ($article[0]->state !== 1)) {
+            return abort('404', 'Not Found.');
         } else {
             Article::where('slug', '=', $slug)->increment('views');
             $comments = $article[0]->comment;
@@ -114,10 +114,27 @@ class ArticleController extends Controller
         if ($request->hasFile('cover')) {
             $article->cover = $fileName;
         }
+        if ($request['draft']) {
+            $article->state = $article->previous_state;
+            $article->state = 0;
+        }
+        if ($request['publish']) {
+            $article->state = $article->previous_state;
+            $article->state = 1;
+        }
         $article->save();
         $article->category()->sync($request['categories']);
         $article->tag()->sync($request['tags']);
         return redirect(route('Article > Edit', $id));
+    }
+
+    public function DeletePermanently($id)
+    {
+        $article = Article::find($id);
+        $article->previous_state = $article->state;
+        $article->state=-1;
+        $article->save();
+        return back();
     }
 
     public function Delete($id)
@@ -129,9 +146,18 @@ class ArticleController extends Controller
         return back();
     }
 
+    public function Restore($id)
+    {
+        $article = Article::find($id);
+        $article->state = $article->previous_state;
+        $article->save();
+        return back();
+    }
+
 
     /**
-     * Define Custom methods to do some magics!
+     * Define custom methods to do some magics!
+     * Not finished yet ...
      */
     private function ObjectToArray(object $object, array $properties)
     {

@@ -22,7 +22,9 @@
                     <tr>
                         <th>عنوان برگه</th>
                         <th>تاریخ انتشار</th>
+                        <td>وضعیت</td>
                         <th>ویرایش</th>
+                        <th>عملیات</th>
                         <th>حذف</th>
                         <th>بازدید</th>
                     </tr>
@@ -31,7 +33,9 @@
                     <tr>
                         <td>عنوان برگه</td>
                         <td>تاریخ انتشار</td>
+                        <td>وضعیت</td>
                         <th>ویرایش</th>
+                        <th>عملیات</th>
                         <th>حذف</th>
                         <th>بازدید</th>
                     </tr>
@@ -42,14 +46,33 @@
                             <td>{{ $page->title }}</td>
                             <td>{{ $page->created_at }}</td>
                             <td>
+                                @if($page->state == 0)
+                                    <div class="state-drafted"></div>
+                                @elseif($page->state == 1)
+                                    <div class="state-published"></div>
+                                @else
+                                    <div class="state-deleted"></div>
+                                @endif
+                            </td>
+                            <td>
                                 <a href="{{ route('Page > Edit', $page->id) }}">
-                                    <button class="uk-button uk-button-small uk-button-primary">ویرایش</button>
+                                    <button class="uk-button uk-button-small uk-button-secondary">ویرایش</button>
                                 </a>
+                            </td>
+                            <td>
+                                @if($page->state == -1)
+                                    <form action="{{ route('Page > Restore', $page->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="uk-button uk-button-small uk-button-primary">بازیابی</button>
+                                    </form>
+                                @else
+                                    -
+                                @endif
                             </td>
                             <td>
                                 <form action="{{ route('Page > Delete', $page->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="uk-button uk-button-small uk-button-danger">حذف</button>
+                                    <button type="submit" class="uk-button uk-button-text uk-text-danger">حذف</button>
                                 </form>
                             </td>
                             <td>

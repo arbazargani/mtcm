@@ -23,6 +23,7 @@ class CreatePagesTable extends Migration
             $table->integer('hidden')->default(0);
             $table->integer('views')->default(0);
             $table->text('cover')->nullable();
+            $table->integer('previous_state')->nullable();
             $table->integer('state');
             $table->timestamps();
         });

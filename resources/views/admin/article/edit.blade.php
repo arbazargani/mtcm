@@ -30,8 +30,12 @@
                 </div>
                 <div class="uk-width-1-3@m">
                     <div class="uk-container">
-                        <button type="submit" name="publish" class="uk-button uk-button-medium uk-button-primary uk-border-rounded" value="1">بروزرسانی</button>
-                        <button type="submit" name="draft" class="uk-button uk-button-medium uk-button-default uk-border-rounded" value="1">پیش‌نویس</button>
+                        <button type="submit" name="update" class="uk-button uk-button-medium uk-button-secondary uk-border-rounded" value="1">بروزرسانی</button>
+                        @if($article->state == 1)
+                            <button type="submit" name="draft" class="uk-button uk-button-medium uk-button-danger uk-border-rounded" value="1">پیش‌نویس</button>
+                        @elseif($article->state == 0)
+                            <button type="submit" name="publish" class="uk-button uk-button-medium uk-button-primary uk-border-rounded" value="1">انتشار</button>
+                        @endif
                     </div>
                     <hr class="uk-divider-icon">
                      <div class="uk-container">

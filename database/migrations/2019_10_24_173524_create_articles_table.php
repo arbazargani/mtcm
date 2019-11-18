@@ -26,6 +26,7 @@ class CreateArticlesTable extends Migration
             $table->integer('comments')->default(0);
             $table->integer('likes')->default(0);
             $table->text('cover')->nullable();
+            $table->integer('previous_state')->nullable();
             $table->integer('state');
             $table->timestamps();
         });
