@@ -39,7 +39,7 @@ class PageController extends Controller
 
     public function Show($slug) {
         $page = Page::where('slug', '=', $slug)->get();
-        if (!count($page)) {
+        if (!count($page) || ($page[0]->state !== 1)) {
             return abort('404');
         }
         return view('public.page.single', compact('page'));

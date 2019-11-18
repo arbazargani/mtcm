@@ -13,6 +13,7 @@ class CategoryController extends Controller
         $categories = Category::paginate(20);
         return view('admin.category.manage', compact('categories'));
     }
+
     public function Submit(Request $request)
     {
         $request->validate([
@@ -27,6 +28,7 @@ class CategoryController extends Controller
         $category->save();
         return redirect(route('Category > Manage'));
     }
+
     public function Delete($id)
     {
         if ($id == 1) {
@@ -36,6 +38,7 @@ class CategoryController extends Controller
         $category = Category::find($id)->delete();
         return back();
     }
+
     public function Archive($slug)
     {
         $category = Category::with('article')->where('slug', '=', $slug)->get();

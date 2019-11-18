@@ -13,6 +13,7 @@ class TagController extends Controller
         $tags = Tag::paginate(20);
         return view('admin.tag.manage', compact('tags'));
     }
+
     public function Submit(Request $request)
     {
         $request->validate([
@@ -27,11 +28,13 @@ class TagController extends Controller
         $tag->save();
         return redirect(route('Tag > Manage'));
     }
+
     public function Delete($id)
     {
         $tag = Tag::find($id)->delete();
         return back();
     }
+
     public function Archive($slug)
     {
         $tag = Tag::with('article')->where('slug', '=', $slug)->get();

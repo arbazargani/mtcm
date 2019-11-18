@@ -16,6 +16,7 @@ class UserController extends Controller
         // return view('public.user.archive', compact(['articles'], 'user'));
         return view('public.user.archive', compact(['articles', 'user']));
     }
+
     public function logout()
     {
         Auth::logout();
