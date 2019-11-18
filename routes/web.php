@@ -26,6 +26,8 @@ Route::get('/category/{slug}', 'CategoryController@Archive')->name('Category > A
 
 Route::get('/author/{username}', 'UserController@Archive')->name('User > Archive');
 
+Route::post('/comment/{id}/submit' ,'CommentController@Submit')->name('Comment > Submit');
+
 Route::prefix('admin')->middleware('auth', 'HasAdminAccess')->group(function () {
 	Route::get('/', 'AdminController@Index')->name('Admin');
 

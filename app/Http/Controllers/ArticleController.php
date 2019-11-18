@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Category;
+use App\Comment;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,12 +12,15 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-    public function New() {
+    public function New()
+    {
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.article.new', compact(['categories', 'tags']));
     }
-    public function Submit(Request $request) {
+
+    public function Submit(Request $request)
+    {
         if ($request['publish']) {
             $request->validate([
                 'title' => 'required|min:1|max:400',
@@ -33,7 +37,7 @@ class ArticleController extends Controller
                 // Get just file extention
                 $imageExtention = $request->file('cover')->getClientOriginalExtension();
                 // Make unique file name
-                $fileName = $imageName.'_'.time().'.'.$imageExtention;
+                $fileName = $imageName . '_' . time() . '.' . $imageExtention;
                 // Store for public uses
                 $path = $request->file('cover')->storeAs('public/uploads/articles/images', $fileName);
             }
@@ -53,26 +57,36 @@ class ArticleController extends Controller
 
         return redirect(route('Article > Edit', $article->id));
     }
-    public function Manage() {
+
+    public function Manage()
+    {
         $articles = Article::latest()->paginate(20);
         return view('admin.article.manage', compact('articles'));
     }
-    public function Show($slug) {
+
+    public function Show($slug)
+    {
         $article = Article::where('slug', '=', $slug)->get();
         if (!count($article)) {
             return abort('404');
         } else {
-          Article::where('slug', '=', $slug)->increment('views');
-          return view('public.article.single', compact('article'));
+            Article::where('slug', '=', $slug)->increment('views');
+            $comments = $article[0]->comment;
+            //$comments = $this->ObjectToArray($comments, ['id', 'content', 'article_id', 'user_id', 'name', 'family', 'email', 'website', 'created_at', 'updated_at']);
+            return view('public.article.single', compact(['article', 'comments']));
         }
     }
-    public function Edit($id) {
+
+    public function Edit($id)
+    {
         $article = Article::find($id);
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.article.edit', compact(['article', 'id', 'categories', 'tags']));
     }
-    public function Update(Request $request, $id) {
+
+    public function Update(Request $request, $id)
+    {
         $request->validate([
             'title' => 'required|min:1|max:400',
             'content' => 'required|min:1|',
@@ -87,7 +101,7 @@ class ArticleController extends Controller
             // Get just file extention
             $imageExtention = $request->file('cover')->getClientOriginalExtension();
             // Make unique file name
-            $fileName = $imageName.'_'.time().'.'.$imageExtention;
+            $fileName = $imageName . '_' . time() . '.' . $imageExtention;
             // Store for public uses
             $path = $request->file('cover')->storeAs('public/uploads/articles/images', $fileName);
         }
@@ -103,11 +117,29 @@ class ArticleController extends Controller
         $article->tag()->sync($request['tags']);
         return redirect(route('Article > Edit', $id));
     }
-    public function Delete($id) {
+
+    public function Delete($id)
+    {
         // $article = Article::find($id)->delete();
         $article = Article::find($id);
-        Storage::delete('public/uploads/articles/images/'.$article->cover);
+        Storage::delete('public/uploads/articles/images/' . $article->cover);
         $article->delete();
         return back();
+    }
+
+
+    /**
+     * Define Custom methods to do some magics!
+     */
+    private function ObjectToArray(object $object, array $properties)
+    {
+        $array = array();
+        $objects = $object;
+        foreach ($objects as $current) {
+            foreach ($properties as $property) {
+                $array[][$property] = $current->$property;
+            }
+        }
+        return $array;
     }
 }

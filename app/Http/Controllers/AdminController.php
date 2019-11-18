@@ -11,6 +11,7 @@ class AdminController extends Controller
     public function Index() {
         return view('admin.home.index');
     }
+
     public function Profile() {
         $user = User::where('id', '=', Auth::id())->get();
     	return view('admin.profile.edit', compact('user'));

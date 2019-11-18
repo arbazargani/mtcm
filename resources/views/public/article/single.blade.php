@@ -55,6 +55,9 @@
         <content class="uk-margin-auto uk-text-justify">
             {!! $article[0]->content !!}
         </content>
+        <comments>
+          @include('public.article.comments')
+        </comments>
       </article>
     </div>
     <div class="sidebar uk-card uk-card-default uk-card-body uk-width-1-4@m uk-border-right uk-border-top-1">
@@ -68,8 +71,6 @@
       </p>
       <img class="uk-align-center" src="https://picsum.photos/400/400" alt="cover">
     </div>
-
 </div>
-
 </div>
 @endsection
