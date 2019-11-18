@@ -28,6 +28,6 @@ class HomeController extends Controller
     public function Index()
     {
         $LatestArticles = Article::latest()->paginate(5);
-        return view('public.home.index', compact(['LatestArticles', 'categories']));
+        return view('public.home.index', compact('LatestArticles'));
     }
 }
