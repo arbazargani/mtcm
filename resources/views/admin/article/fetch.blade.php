@@ -57,6 +57,15 @@
             <td>@foreach($article->category as $category) <a href="{{ route('Category > Archive', $category->slug) }}" class="uk-text-meta">{{ $category->name }}@if(!$loop->last) {{', '}} @endif</a> @endforeach</td>
             <td>@foreach($article->tag as $tag) <a href="{{ route('Tag > Archive', $tag->slug) }}" class="uk-text-meta">{{ $tag->name }}@if(!$loop->last) {{', '}} @endif</a>@endforeach</td>
             <td>
+                @if($article->state == 0)
+                    <div class="state-drafted"></div>
+                @elseif($article->state == 1)
+                    <div class="state-published"></div>
+                @else
+                    <div class="state-deleted"></div>
+                @endif
+            </td>
+            <td>
                 <a href="{{ route('Article > Edit', $article->id) }}">
                     <button class="uk-button uk-button-small uk-button-primary">ویرایش</button>
                 </a>

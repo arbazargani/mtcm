@@ -9,6 +9,7 @@ use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use function Composer\Autoload\includeFile;
 
 class ArticleController extends Controller
 {
@@ -21,39 +22,40 @@ class ArticleController extends Controller
 
     public function Submit(Request $request)
     {
+        $request->validate([
+            'title' => 'required|min:1|max:400',
+            'content' => 'required|min:1',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $fileName = 'ghost.png';
+        if ($request->hasFile('cover')) {
+            // Get filename.extention
+            $image = $request->file('cover')->getClientOriginalName();
+            // Get just file name
+            $imageName = pathinfo($image, PATHINFO_FILENAME);
+            // Get just file extention
+            $imageExtention = $request->file('cover')->getClientOriginalExtension();
+            // Make unique file name
+            $fileName = $imageName . '_' . time() . '.' . $imageExtention;
+            // Store for public uses
+            $path = $request->file('cover')->storeAs('public/uploads/articles/images', $fileName);
+        }
+
+        $article = new Article();
+        $article->title = $request['title'];
+        $article->content = $request['content'];
+        $article->cover = $fileName;
+        $article->user_id = Auth::id();
         if ($request['publish']) {
-            $request->validate([
-                'title' => 'required|min:1|max:400',
-                'content' => 'required|min:1',
-                'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
-
-            $fileName = 'ghost.png';
-            if ($request->hasFile('cover')) {
-                // Get filename.extention
-                $image = $request->file('cover')->getClientOriginalName();
-                // Get just file name
-                $imageName = pathinfo($image, PATHINFO_FILENAME);
-                // Get just file extention
-                $imageExtention = $request->file('cover')->getClientOriginalExtension();
-                // Make unique file name
-                $fileName = $imageName . '_' . time() . '.' . $imageExtention;
-                // Store for public uses
-                $path = $request->file('cover')->storeAs('public/uploads/articles/images', $fileName);
-            }
-
-            $article = new Article();
-            $article->title = $request['title'];
-            $article->content = $request['content'];
-            $article->cover = $fileName;
-            $article->user_id = Auth::id();
-            $article->save();
-            $article->category()->attach($request['categories']);
-            $article->tag()->attach($request['tags']);
+            $article->state = 1;
         }
         if ($request['draft']) {
-            return 'drafted.';
+            $article->state = 0;
         }
+        $article->save();
+        $article->category()->attach($request['categories']);
+        $article->tag()->attach($request['tags']);
 
         return redirect(route('Article > Edit', $article->id));
     }

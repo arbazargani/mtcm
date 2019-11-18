@@ -14,3 +14,21 @@ html {
 .sidebar {
   padding: 10px;
 }
+.state-published {
+    border-radius: 100%;
+    background-color: green;
+    width: 10px;
+    height: 10px;
+}
+.state-drafted {
+    border-radius: 50%;
+    background-color: darkorange;
+    width: 10px;
+    height: 10px;
+}
+.state-deleted {
+    border-radius: 100%;
+    background-color: red;
+    width: 10px;
+    height: 10px;
+}
