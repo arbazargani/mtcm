@@ -11,6 +11,7 @@
         <li class=""><a href="{{ route('Page > Manage') }}">صفحات</a></li>
         <li class=""><a href="{{ route('Category > Manage') }}">دسته‌ها</a></li>
         <li class=""><a href="{{ route('Tag > Manage') }}">برچسب‌ها</a></li>
+        <li class=""><a href="{{ route('Comment > Manage') }}">دیدگاه‌ها</a></li>
     </ul>
 
     <hr class="uk-divider-small">

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
-use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,5 +38,22 @@ class CommentController extends Controller
       }
       $comment->save();
       return back();
+    }
+
+    public function Manage()
+    {
+        $comments = Comment::latest()->paginate(10);
+        return view('admin.comment.manage', compact('comments'));
+    }
+
+    public function Delete($id)
+    {
+        $comment = Comment::find($id);
+        if ($comment) {
+            $comment->delete();
+            return back(301);
+        } else {
+            return abort(401, 'unauthorized action.');
+        }
     }
 }

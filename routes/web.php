@@ -59,4 +59,7 @@ Route::prefix('admin')->middleware('auth', 'HasAdminAccess')->group(function () 
     Route::post('category/new/submit', 'CategoryController@Submit')->name('Category > Submit');
     Route::post('category/delete/{id}', 'CategoryController@Delete')->name('Category > Delete');
     // Route::post('category/resotre/{id}', 'CategoryController@Restore')->name('Category > Restore');
+
+    Route::get('comment/manage/', 'CommentController@Manage')->name('Comment > Manage');
+    Route::post('comment/delete/{id}', 'CommentController@Delete')->name('Comment > Delete');
 });
