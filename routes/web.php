@@ -16,7 +16,7 @@ Route::get('/user/logout', 'UserController@logout')->name('User > Logout');
 
 Route::get('/', 'HomeController@Index')->name('Home');
 
-Route::get('/article/{slug}', 'ArticleController@Show')->name('Article > Single');
+Route::get('/article/{slug}', 'ArticleController@Show')->middleware('CheckPageState')->name('Article > Single');
 
 Route::get('page/{slug}', 'PageController@Show')->name('Page > Single');
 
