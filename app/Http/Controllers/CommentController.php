@@ -14,8 +14,7 @@ class CommentController extends Controller
       $comment->article_id = $id;
       if (Auth::check()) {
         $request->validate([
-            'content' => 'min:2',
-            'website' => 'min:4'
+            'content' => 'required|min:2',
         ]);
         $comment->user_id = Auth::user()->id;
         $comment->name = Auth::user()->name;
@@ -27,7 +26,7 @@ class CommentController extends Controller
             'family' => 'min:1|max:20',
             'email' => 'required|min:1',
             'website' => 'min:4',
-            'content' => 'min:2'
+            'content' => 'required|min:2'
         ]);
         $comment->name = $request['name'];
         $comment->family = $request['name'];
