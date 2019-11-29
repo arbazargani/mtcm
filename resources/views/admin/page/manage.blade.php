@@ -16,73 +16,75 @@
                 </button>
             </p>
             @if(count($pages))
-                <table class="uk-table uk-table-striped uk-table-hover">
-                    {{--                            <caption>آخرین برگه‌ها</caption>--}}
-                    <thead>
-                    <tr>
-                        <th>عنوان برگه</th>
-                        <th>تاریخ انتشار</th>
-                        <td>وضعیت</td>
-                        <th>ویرایش</th>
-                        <th>عملیات</th>
-                        <th>حذف</th>
-                        <th>بازدید</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <td>عنوان برگه</td>
-                        <td>تاریخ انتشار</td>
-                        <td>وضعیت</td>
-                        <th>ویرایش</th>
-                        <th>عملیات</th>
-                        <th>حذف</th>
-                        <th>بازدید</th>
-                    </tr>
-                    </tfoot>
-                    <tbody>
-                    @foreach($pages as $page)
+                <div class="uk-overflow-auto">
+                    <table class="uk-table uk-table-striped uk-table-hover">
+                        {{--                            <caption>آخرین برگه‌ها</caption>--}}
+                        <thead>
                         <tr>
-                            <td>{{ $page->title }}</td>
-                            <td>{{ $page->created_at }}</td>
-                            <td>
-                                @if($page->state == 0)
-                                    <div class="state-drafted"></div>
-                                @elseif($page->state == 1)
-                                    <div class="state-published"></div>
-                                @else
-                                    <div class="state-deleted"></div>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('Page > Edit', $page->id) }}">
-                                    <button class="uk-button uk-button-small uk-button-secondary">ویرایش</button>
-                                </a>
-                            </td>
-                            <td>
-                                @if($page->state == -1)
-                                    <form action="{{ route('Page > Restore', $page->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="uk-button uk-button-small uk-button-primary">بازیابی</button>
-                                    </form>
-                                @else
-                                    -
-                                @endif
-                            </td>
-                            <td>
-                                <form action="{{ route('Page > Delete', $page->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="uk-button uk-button-text uk-text-danger">حذف</button>
-                                </form>
-                            </td>
-                            <td>
-                                <a href="{{ route('Page > Single', $page->slug) }}">بازدید</a>
-                            </td>
+                            <th>عنوان برگه</th>
+                            <th>تاریخ انتشار</th>
+                            <td>وضعیت</td>
+                            <th>ویرایش</th>
+                            <th>عملیات</th>
+                            <th>حذف</th>
+                            <th>بازدید</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                {{ $pages->links() }}
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <td>عنوان برگه</td>
+                            <td>تاریخ انتشار</td>
+                            <td>وضعیت</td>
+                            <th>ویرایش</th>
+                            <th>عملیات</th>
+                            <th>حذف</th>
+                            <th>بازدید</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        @foreach($pages as $page)
+                            <tr>
+                                <td>{{ $page->title }}</td>
+                                <td>{{ $page->created_at }}</td>
+                                <td>
+                                    @if($page->state == 0)
+                                        <div class="state-drafted"></div>
+                                    @elseif($page->state == 1)
+                                        <div class="state-published"></div>
+                                    @else
+                                        <div class="state-deleted"></div>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('Page > Edit', $page->id) }}">
+                                        <button class="uk-button uk-button-small uk-button-secondary">ویرایش</button>
+                                    </a>
+                                </td>
+                                <td>
+                                    @if($page->state == -1)
+                                        <form action="{{ route('Page > Restore', $page->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="uk-button uk-button-small uk-button-primary">بازیابی</button>
+                                        </form>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    <form action="{{ route('Page > Delete', $page->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="uk-button uk-button-text uk-text-danger">حذف</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a href="{{ route('Page > Single', $page->slug) }}">بازدید</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    {{ $pages->links() }}
+                </div>
             @else
                 <div class="uk-alert-warning" uk-alert>
                     <a class="uk-alert-close" uk-close></a>
