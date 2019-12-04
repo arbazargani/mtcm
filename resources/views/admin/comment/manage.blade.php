@@ -22,6 +22,7 @@
                                     <th>تاریخ انتشار</th>
                                     <th>مقاله مرتبط</th>
                                     <th>نویسنده</th>
+                                    <th>عملیات</th>
                                     <th>حذف</th>
                                 </tr>
                                 </thead>
@@ -31,6 +32,7 @@
                                     <th>تاریخ انتشار</th>
                                     <th>مقاله مرتبط</th>
                                     <th>نویسنده</th>
+                                    <th>عملیات</th>
                                     <th>حذف</th>
                                 </tr>
                                 </tfoot>
@@ -41,11 +43,24 @@
                                             <span style="white-space: nowrap;
                                                          overflow: hidden;
                                                          text-overflow: ellipsis;
-                                            ">{{ $comment->content }}</span>
+                                            ">{{ substr($comment->content, 0 , 100) . '...' }}</span>
                                         </td>
                                         <td>{{ $comment->created_at }}</td>
-                                        <td><a href="{{ route('Article > Single', $comment->article->slug) }}">{{ $comment->article->title }}</a></td>
+                                        <td><a href="{{ route('Article > Single', $comment->article->slug) }}">{{ substr($comment->article->title, 0, 90) . '...' }}</a></td>
                                         <td>{{ $comment->name . $comment->family }}</td>
+                                        <td>
+                                            @if($comment->approved)
+                                                <form action="{{ route('Comment > Unapprove', $comment->id) }}" method="post">
+                                                    @csrf
+                                                    <button class="uk-button uk-button-secondary" type="submit">تعلیق</button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('Comment > Approve', $comment->id) }}" method="post">
+                                                    @csrf
+                                                    <button class="uk-button uk-button-primary" type="submit">تایید</button>
+                                                </form>
+                                            @endif
+                                        </td>
                                         <td>
                                             <form action="{{ route('Comment > Delete', $comment->id) }}" method="post">
                                                 @csrf

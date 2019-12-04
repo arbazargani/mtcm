@@ -61,5 +61,7 @@ Route::prefix('admin')->middleware('auth', 'HasAdminAccess')->group(function () 
     // Route::post('category/resotre/{id}', 'CategoryController@Restore')->name('Category > Restore');
 
     Route::get('comment/manage/', 'CommentController@Manage')->name('Comment > Manage');
+    Route::post('comment/approve/{id}/', 'CommentController@Approve')->name('Comment > Approve');
+    Route::post('comment/unapprove/{id}/', 'CommentController@Unapprove')->name('Comment > Unapprove');
     Route::post('comment/delete/{id}', 'CommentController@Delete')->name('Comment > Delete');
 });

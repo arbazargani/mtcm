@@ -25,6 +25,7 @@ class CreateCommentsTable extends Migration
             $table->string('family')->nullable();
             $table->text('email');
             $table->string('website')->nullable();
+            $table->boolean('approved')->default(0);
 
             $table->timestamps();
         });

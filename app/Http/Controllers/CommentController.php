@@ -35,6 +35,7 @@ class CommentController extends Controller
       if (isset($request['website'])) {
         $comment->website = $request['website'];
       }
+      $comment->approved = 0;
       $comment->save();
       return back();
     }
@@ -43,6 +44,30 @@ class CommentController extends Controller
     {
         $comments = Comment::latest()->paginate(10);
         return view('admin.comment.manage', compact('comments'));
+    }
+
+    public function Approve($id)
+    {
+        $comment = Comment::find($id);
+        if ($comment) {
+            $comment->approved = 1;
+            $comment->save();
+            return back(301);
+        } else {
+            return abort(401, 'unauthorized action.');
+        }
+    }
+
+    public function Unapprove($id)
+    {
+        $comment = Comment::find($id);
+        if ($comment) {
+            $comment->approved = 0;
+            $comment->save();
+            return back(301);
+        } else {
+            return abort(401, 'unauthorized action.');
+        }
     }
 
     public function Delete($id)

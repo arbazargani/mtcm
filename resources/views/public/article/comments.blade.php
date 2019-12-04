@@ -70,22 +70,24 @@
                     </div>
                 </li>
             </ul>
-            @if(count($comments))
+            @if(count($comments->where('approved', '=', 1)))
                 @foreach($comments->reverse() as $comment)
-                <div class="uk-comment uk-comment-primary uk-margin-small">
-                    <div class="uk-comment-header">
-                        ارسال شده توسط
-                        {{ $comment->name }}
-                        در تاریخ
-                        {{ $comment->created_at }}
-                    </div>
-                    <div class="uk-comment-body uk-padding-small" style="background-color: rgba(74,123,227,0.11)">
-                        <p class="uk-margin-small-right">
-                            {{ $comment->content }}
-                        </p>
-                    </div>
-                </div>
-            @endforeach
+                    @if($comment->approved)
+                        <div class="uk-comment uk-comment-primary uk-margin-small">
+                            <div class="uk-comment-header">
+                                ارسال شده توسط
+                                {{ $comment->name }}
+                                در تاریخ
+                                {{ $comment->created_at }}
+                            </div>
+                            <div class="uk-comment-body uk-padding-small" style="background-color: rgba(74,123,227,0.11)">
+                                <p class="uk-margin-small-right">
+                                    {{ $comment->content }}
+                                </p>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             @else
                 <div class="uk-alert uk-alert-danger">
                     <span>دیدگاهی برای این نوشته ثبت نشده است.</span>
