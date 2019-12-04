@@ -47,7 +47,7 @@
                                         </td>
                                         <td>{{ $comment->created_at }}</td>
                                         <td><a href="{{ route('Article > Single', $comment->article->slug) }}">{{ substr($comment->article->title, 0, 90) . '...' }}</a></td>
-                                        <td>{{ $comment->name . $comment->family }}</td>
+                                        <td>{{ $comment->name . ' ' . $comment->family }}</td>
                                         <td>
                                             @if($comment->approved)
                                                 <form action="{{ route('Comment > Unapprove', $comment->id) }}" method="post">
@@ -57,7 +57,7 @@
                                             @else
                                                 <form action="{{ route('Comment > Approve', $comment->id) }}" method="post">
                                                     @csrf
-                                                    <button class="uk-button uk-button-primary" type="submit">تایید</button>
+                                                    <button class="uk-button uk-button-default" type="submit" style="border: 1px solid #f0506e; color: #f0506e;">تایید</button>
                                                 </form>
                                             @endif
                                         </td>

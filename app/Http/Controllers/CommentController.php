@@ -25,12 +25,12 @@ class CommentController extends Controller
             'name' => 'required|min:1|max:20',
             'family' => 'min:1|max:20',
             'email' => 'required|min:1',
-            'website' => 'min:4',
+//            'website' => 'min:4',
             'content' => 'required|min:2'
         ]);
         $comment->name = $request['name'];
-        $comment->family = $request['name'];
-        $comment->email = $request['name'];
+        $comment->family = $request['family'];
+        $comment->email = $request['email'];
       }
       if (isset($request['website'])) {
         $comment->website = $request['website'];

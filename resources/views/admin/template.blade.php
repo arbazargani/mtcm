@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
     <script src="{{ asset('assets/js/uikit.min.js') }}"></script>
     <script src="{{ asset('assets/js/uikit-icons.min.js') }}"></script>
-    <script src="https://cdn.tiny.cloud/1/b3zbxrwztsjum71vs51caf64xuyitiqpxu3irnfb1i7qgusn/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+{{--    <script src="https://cdn.tiny.cloud/1/b3zbxrwztsjum71vs51caf64xuyitiqpxu3irnfb1i7qgusn/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
     <script>
         tinymce.init({
             selector:'#content',
