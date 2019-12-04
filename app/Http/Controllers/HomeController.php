@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function Index()
     {
-        $LatestArticles = Article::latest()->paginate(5);
+        $LatestArticles = Article::latest()->where('state', '=', 1)->paginate(5);
         return view('public.home.index', compact('LatestArticles'));
     }
 }
