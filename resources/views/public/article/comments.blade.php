@@ -76,7 +76,7 @@
                         <div class="uk-comment uk-comment-primary uk-margin-small">
                             <div class="uk-comment-header">
                                 ارسال شده توسط
-                                {{ $comment->name }}
+                                <a>{{ $comment->name . ' ' . $comment->family }}</a>
                                 در تاریخ
                                 {{ $comment->created_at }}
                             </div>
