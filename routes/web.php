@@ -11,6 +11,8 @@
 |
 */
 
+use Hekmatinasser\Verta\Verta;
+
 Auth::routes();
 
 Route::get('/user/logout', 'UserController@logout')->name('User > Logout');
