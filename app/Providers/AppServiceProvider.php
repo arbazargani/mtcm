@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Category;
 use App\Tag;
 use Illuminate\Support\ServiceProvider;
+use Hekmatinasser\Verta\Verta;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,12 @@ class AppServiceProvider extends ServiceProvider
         $categories = Category::all();
         $tags = Tag::all();
         view()->share(['categories'=> $categories, 'tags' => $tags]);
+
+        // \Blade::directive('jalali', function($timestamp) {
+        //   $jalaliDate = new Verta("$timestamp");
+        //   $jalaliDate = Verta::instance("$timestamp");
+        //   $jalaliDate = Facades\Verta::instance("$timestamp");
+        //   return "<?php echo $jalaliDate; ";
+        //});
     }
 }

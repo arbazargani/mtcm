@@ -44,7 +44,14 @@
           |
           <span>
             <span uk-icon="icon: clock"></span> <span class="uk-text-primary">تاریخ انتشار: </span>
-            <a>{{ $article[0]->created_at }}</a>
+            <?php
+              $jalaliDate = new Verta($article[0]->created_at);
+              $jalaliDate->timezone('Asia/Tehran');
+              Verta::setStringformat('Y/n/j H:i:s');
+              $jalaliDate = Verta::instance($article[0]->created_at);
+              $jalaliDate = Facades\Verta::instance($article[0]->created_at);
+            ?>
+            <a>{{ $jalaliDate }}</a>
           </span>
           |
           <span>
