@@ -10,7 +10,7 @@
       <article class="article uk-padding">
 {{--        <img class="uk-align-center" src="https://picsum.photos/800/300?grayscale" alt="cover">--}}
             @if($article[0]->cover)
-              <img class="uk-align-center" src="/storage/uploads/articles/images/{{ $article[0]->cover }}" alt="cover" style="max-width: 900px; max-height: 400px">
+              <img class="uk-align-center" src="/storage/uploads/articles/images/{{ $article[0]->cover }}" alt="cover" style="max-width: 900px; width: 100%; max-height: 400px">
             @endif
         <h1 class="uk-article-title">{{ $article[0]->title }}</h1>
         <p class="uk-article-meta">
