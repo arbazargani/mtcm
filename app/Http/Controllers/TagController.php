@@ -6,6 +6,9 @@ use App\Tag;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
+
 class TagController extends Controller
 {
     public function Manage()
@@ -35,12 +38,36 @@ class TagController extends Controller
         return back();
     }
 
-    public function Archive($slug)
+    public function Archive(Request $request, $slug)
     {
         $tag = Tag::with('article')->where('slug', '=', $slug)->get();
         if (!count($tag)) {
-            return abort('404');
+          return abort('404')->get();
         }
-        return view('public.tag.archive', compact('tag'));
+
+        //handle array of objects pagination
+
+        // Get current page form url e.x. &page=1
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+        // Create a new Laravel collection from the array data
+        // $itemCollection = collect($items);
+        $itemCollection = collect($tag[0]->article->reverse());
+
+        // Define how many items we want to be visible in each page
+        $perPage = 9;
+
+        // Slice the collection to get the items to display in current page
+        $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
+
+        // Create our paginator and pass it to the view
+        $paginatedItems= new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage);
+
+        // set url path for generted links
+        $paginatedItems->setPath($request->url());
+
+        $PaginatedCategories = $paginatedItems;
+  
+        return view('public.tag.archive', compact('tag', 'PaginatedCategories'));
     }
 }

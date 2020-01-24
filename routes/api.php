@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Article;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,17 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('v1')->group(function () {
+    // fetch all articles.
+    Route::get('articles', 'Api\ArticleController@All');
+    // fetch single article.
+    Route::get('article/{id}', 'Api\ArticleController@Show');
+    // add new article.
+    Route::post('article/new', 'ArticleController@New');
+    // update article.
+    Route::put('article/{id}', 'ArticleController@Update');
+    // delete article.
+    Route::put('article/{id}', 'ArticleController@Delete');
 });

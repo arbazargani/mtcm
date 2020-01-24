@@ -8,7 +8,7 @@
     <div class="tm-main uk-section uk-section-default">
         <div class="uk-container uk-container-large">
             <h2 id="lightbox" class="uk-h2 tm-heading-fragment">
-                مدیریت دیدگاه‌های ثبت شده توسط کاربران
+                مدیریت دیدگاه‌ها
             </h2>
             <div class="uk-grid-small uk-position-relative uk-grid" uk-grid>
                 <div class="uk-width-1-1">

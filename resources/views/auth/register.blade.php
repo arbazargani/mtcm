@@ -1,86 +1,53 @@
 @extends('public.template')
 
 @section('content')
-<?php echo "<pre>". var_dump($errors) ."</pre>" ?>
-@if($errors->any())
-    @foreach($errors as $item)
-        <h4>{{ $item }}</h4>
-    @endforeach
-@endif
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                
-                                <!-- my field -->
-                                <br>
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<div class="uk-container uk-align-center uk-width-1-3@m uk-width-1-2@s uk-padding-remove uk-first-column" style="max-width: 1120px;">
+    <div class="uk-card uk-card-default uk-box-shadow-small">
+        <div class="uk-card-header" style="padding: 15px 30px 17px;">
+            <h2 class="uk-margin-remove uk-visible@s">ورود به سامانه</h2>
+            <h3 class="uk-margin-remove uk-hidden@s">ورود به سامانه</h3>
+        </div>
+        <div class="uk-card-body uk-padding-xsmall">
+            @if($errors->any())
+            <div class="uk-alert-danger" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <ul></ul>
+                @foreach($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
             </div>
+            @endif
+            <form class="uk-grid-small uk-position-relative uk-grid" uk-grid="" action="{{ route('register') }}" method="POST">
+                @csrf
+                <div class="uk-inline uk-width-1-1 uk-first-column">
+                    <i class="uk-form-icon uk-icon" uk-icon="icon: file-text" style="right: auto"></i>
+                    <input id="name" type="text" placeholder="نام" class="uk-input form-control @error('name') uk-form-danger @enderror" name="name" value="{{ old('name') }}" autocomplete="name" style="padding-left: 40px;" autofocus>
+                </div>
+                <div class="uk-inline uk-width-1-1 uk-first-column">
+                    <i class="uk-form-icon uk-icon" uk-icon="icon: file-text" style="right: auto"></i>
+                    <input id="family" type="text" placeholder="نام خانوادگی" class="uk-input form-control @error('family') uk-form-danger @enderror" name="family" value="{{ old('family') }}" autocomplete="family" style="padding-left: 40px;">
+                </div>
+                <div class="uk-inline uk-width-1-1 uk-first-column">
+                    <i class="uk-form-icon uk-icon" uk-icon="icon: user" style="right: auto"></i>
+                    <input id="username" type="text" placeholder="نام کاربری" class="uk-input form-control @error('username') uk-form-danger @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" style="padding-left: 40px;">
+                </div>
+                <div class="uk-inline uk-width-1-1 uk-first-column">
+                    <i class="uk-form-icon uk-icon" uk-icon="icon: comment" style="right: auto"></i>
+                    <input id="email" type="email" placeholder="ایمیل" class="uk-input form-control @error('email') uk-form-danger @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" style="padding-left: 40px;">
+                </div>
+                <div class="uk-inline uk-width-1-1 uk-first-column">
+                    <i class="uk-form-icon uk-icon" uk-icon="icon: lock" style="right: auto"></i>
+                    <input id="password" type="password" placeholder="رمز عبور" class="uk-input form-control @error('password') uk-form-danger @enderror" name="password" value="{{ old('password') }}" required autocomplete="password" style="padding-left: 40px;">
+                </div>
+                <div class="uk-inline uk-width-1-1 uk-first-column">
+                    <i class="uk-form-icon uk-icon" uk-icon="icon: lock" style="right: auto"></i>
+                    <input id="password_confirmation" type="password" placeholder="تکرار رمز عبور" class="uk-input form-control @error('password_confirmation') uk-form-danger @enderror" name="password_confirmation" value="{{ old('password_confirmation') }}" required style="padding-left: 40px;">
+                </div>
+                <div class="uk-width-1-1 uk-grid-margin uk-first-column">
+                    {{--{{ __('Register') }}--}}
+                    <button class="uk-button uk-button-primary uk-width-1-1" style="padding: 0px 8px;" name="LoginFromWeb">ثبت‌نام</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

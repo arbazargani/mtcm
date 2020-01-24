@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Category;
 use App\Tag;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 use Hekmatinasser\Verta\Verta;
 
@@ -29,7 +30,8 @@ class AppServiceProvider extends ServiceProvider
         //
         $categories = Category::all();
         $tags = Tag::all();
-        view()->share(['categories'=> $categories, 'tags' => $tags]);
+        $users = User::all();
+        view()->share(['categories'=> $categories, 'tags' => $tags, 'users' => $users]);
 
         // \Blade::directive('jalali', function($timestamp) {
         //   $jalaliDate = new Verta("$timestamp");

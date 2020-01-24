@@ -13,9 +13,11 @@
         <article class="article uk-padding">
             <h1>{{ 'آرشیو دسته: ' . $category[0]->name }}</h1>
             <hr>
-            @if(count($PaginatedCategories))
+            <!-- @if(count($category[0]->article)) -->
+            @if(count($PaginatedCategories->article))
                 <div class="uk-child-width-1-3@m" uk-grid="masonry: true" uk-grid>
-                    @foreach ($PaginatedCategories as $article)
+                <!-- @foreach ($category[0]->article->reverse() as $article) -->
+                    @foreach ($PaginatedCategories->article->reverse() as $article)
                         @if($article->state == 1)
                             @php
                                 $c += 1;
@@ -38,7 +40,7 @@
                     @endforeach
                 </div>
             @endif
-            {{ $PaginatedCategories->links("pagination::uikit") }}
+            {!! PaginatedCategories->links() !!}
             @if(!$c)
             <div class="uk-alert-warning" uk-alert>
             <p>نوشته‌ای در این دسته وجود ندارد.</p>

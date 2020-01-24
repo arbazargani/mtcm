@@ -13,6 +13,10 @@ use function Composer\Autoload\includeFile;
 
 class ArticleController extends Controller
 {
+    public function All() {
+        $articles = Article::latest()->where('state', '=', 1)->paginate(2);
+        return ArticleResource::collection($articles);
+    }
     public function New()
     {
         $categories = Category::all();
@@ -49,9 +53,11 @@ class ArticleController extends Controller
         $article->user_id = Auth::id();
         if ($request['publish']) {
             $article->state = 1;
+            $article->previous_state = 1;
         }
         if ($request['draft']) {
             $article->state = 0;
+            $article->previous_state = 0;
         }
         $article->save();
         $article->category()->attach($request['categories']);
@@ -60,9 +66,25 @@ class ArticleController extends Controller
         return redirect(route('Article > Edit', $article->id));
     }
 
-    public function Manage()
+    public function Manage(Request $request)
     {
-        $articles = Article::latest()->paginate(20);
+         // $articles = Article::where('state', '1')->latest()->pluck('id');
+         // $ids = [];
+         // foreach ($articles as $id) {
+         //     $ids[] = $id;
+         // }
+        // to fetch deleted items
+        if ($request->has('state') && $request['state'] == '-1') {
+            $articles = Article::where('state', '-1')->latest()->paginate(15);
+        }
+        // to fetch drafted items
+        elseif ($request->has('state') && $request['state'] == '0') {
+            $articles = Article::where('state', '0')->latest()->paginate(15);
+        }
+        // to fetch all items [except deleted]
+        else {
+            $articles = Article::where('state', '!=', -1)->latest()->paginate(15);
+        }
         return view('admin.article.manage', compact('articles'));
     }
 

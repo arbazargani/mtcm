@@ -22,5 +22,16 @@ class UserTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        // Admin: Saeed Khosravi
+        DB::table('users')->insert([
+            'name' => '',
+            'family' => '',
+            'email' => 'info@khsoravi.ir',
+            'username' => 'sanix',
+            'password' => bcrypt('sanix'),
+            'rule' => 'admin',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

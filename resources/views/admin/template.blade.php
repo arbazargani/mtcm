@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="Development" content="Alireza Bazargani." />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Tiny-CMS" />
     <meta name="author" content="" />
     @yield('meta')
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
     <script src="{{ asset('assets/js/uikit.min.js') }}"></script>
     <script src="{{ asset('assets/js/uikit-icons.min.js') }}"></script>
-{{--    <script src="https://cdn.tiny.cloud/1/b3zbxrwztsjum71vs51caf64xuyitiqpxu3irnfb1i7qgusn/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
+    <script src="https://cdn.tiny.cloud/1/b3zbxrwztsjum71vs51caf64xuyitiqpxu3irnfb1i7qgusn/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector:'#content',
