@@ -18,6 +18,8 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('content');
+            $table->longText('meta_description');
+            $table->longText('meta_robots');
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->integer('category_id')->default(0);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

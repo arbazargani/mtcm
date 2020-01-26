@@ -10,11 +10,32 @@
             <h2 id="lightbox" class="uk-h2 tm-heading-fragment">
                 مدیریت برگه‌ها
             </h2>
-            <p class="uk-text-lead uk-text-meta">
-                <button class="uk-button uk-button-small uk-border-rounded uk-button-primary" onclick="location.href='{{ route('Page > New') }}'">
-                    ایجاد برگه
-                </button>
-            </p>
+            <div class="uk-margin">
+                <div>
+                    <a href="{{ route('Page > New') }}" target="_blank" class="uk-button uk-button-small uk-border-rounded uk-button-primary">ایجاد مقاله</a>
+                </div>
+                <div class="uk-margin">
+                  @if(isset($_GET['state']) && $_GET['state'] == 'all')
+                    <a href="{{ route('Page > Manage') }}"><span style="background: darkgray" class="uk-label"><span uk-icon="icon: close"></span>
+                      همه
+                    </span></a>
+
+                  @elseif(isset($_GET['state']) && $_GET['state'] == '0')
+                  <a href="{{ route('Page > Manage') }}"><span style="background: darkgray" class="uk-label"><span uk-icon="icon: close"></span>
+                    پیش‌نویس
+                  </span></a>
+                  @elseif(isset($_GET['state']) && $_GET['state'] == '-1')
+                  <a href="{{ route('Page > Manage') }}"><span style="background: darkgray" class="uk-label"><span uk-icon="icon: close"></span>
+                    زباله‌دان
+                  </span></a>
+                  @endif
+                  @if(!isset($_GET['state']))
+                    <a href="?state=all" class="uk-button uk-button-text uk-text-meta">نمایش همه</a> |
+                    <a href="?state=0" class="uk-button uk-button-text uk-text-meta">پیش‌نویس</a> |
+                    <a href="?state=-1" class="uk-button uk-button-text uk-text-meta">زباله‌دان</a>
+                  @endif
+                </div>
+            </div>
             @if(count($pages))
                 <div class="uk-overflow-auto">
                     <table class="uk-table uk-table-striped uk-table-hover">

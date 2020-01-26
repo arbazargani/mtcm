@@ -49,6 +49,8 @@ class ArticleController extends Controller
         $article = new Article();
         $article->title = $request['title'];
         $article->content = $request['content'];
+        $article->meta_description = isset($request['meta-description']) ? $request['meta-description'] : '';
+        $article->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
         $article->cover = $fileName;
         $article->user_id = Auth::id();
         if ($request['publish']) {
@@ -68,11 +70,6 @@ class ArticleController extends Controller
 
     public function Manage(Request $request)
     {
-         // $articles = Article::where('state', '1')->latest()->pluck('id');
-         // $ids = [];
-         // foreach ($articles as $id) {
-         //     $ids[] = $id;
-         // }
         // to fetch deleted items
         if ($request->has('state') && $request['state'] == '-1') {
             $articles = Article::where('state', '-1')->latest()->paginate(15);
@@ -133,6 +130,8 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $article->title = $request['title'];
         $article->content = $request['content'];
+        $article->meta_description = isset($request['meta-description']) ? $request['meta-description'] : '';
+        $article->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
         if ($request->hasFile('cover')) {
             $article->cover = $fileName;
         }

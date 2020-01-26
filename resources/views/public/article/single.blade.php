@@ -2,6 +2,12 @@
 
 @section('meta')
 <title>{{ $article[0]->title }}</title>
+@if(!is_null($article[0]->meta_description))
+    <meta name="description" content="{{ $article[0]->meta_description }}">
+@endif
+@if(!is_null($article[0]->meta_robots))
+    <meta name="robots" content="{{ $article[0]->meta_robots }}">
+@endif
 @endsection
 
 @section('content')

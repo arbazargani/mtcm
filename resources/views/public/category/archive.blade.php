@@ -29,7 +29,7 @@
                                         <div class="uk-card-badge uk-label">{{ $article->views }} بازدید</div>
                                         <h2 class="uk-card-title uk-text-lead"><a href="{{ route('Article > Single', $article->slug) }}" class="uk-link-heading">{{ $article->title }}</a></h2>
                                         <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ $article->created_at }}">{{ $article->created_at }}</time></p>
-                                        <p>{{ substr($article->content, 0, 100) . '...' }}</p>
+                                        <p>{{ html_entity_decode(strip_tags(substr($article->content, 0, 100))) . '...' }}</p>
                                     </div>
                                     <a class="uk-button uk-button-primary" style="width: 100%; border-radius: 0px 0px 5px 5px;" href="{{ route('Article > Single', $article->slug) }}">بازدید</a>
                                 </div>

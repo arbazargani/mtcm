@@ -14,10 +14,31 @@
                 <div>
                     <a href="{{ route('Article > New') }}" target="_blank" class="uk-button uk-button-small uk-border-rounded uk-button-primary">ایجاد مقاله</a>
                 </div>
+                <div class="uk-margin">
+                  @if(isset($_GET['state']) && $_GET['state'] == 'all')
+                    <a href="{{ route('Article > Manage') }}"><span style="background: darkgray" class="uk-label"><span uk-icon="icon: close"></span>
+                      همه
+                    </span></a>
+
+                  @elseif(isset($_GET['state']) && $_GET['state'] == '0')
+                  <a href="{{ route('Article > Manage') }}"><span style="background: darkgray" class="uk-label"><span uk-icon="icon: close"></span>
+                    پیش‌نویس
+                  </span></a>
+                  @elseif(isset($_GET['state']) && $_GET['state'] == '-1')
+                  <a href="{{ route('Article > Manage') }}"><span style="background: darkgray" class="uk-label"><span uk-icon="icon: close"></span>
+                    زباله‌دان
+                  </span></a>
+                  @endif
+                  @if(!isset($_GET['state']))
+                    <a href="?state=all" class="uk-button uk-button-text uk-text-meta">نمایش همه</a> |
+                    <a href="?state=0" class="uk-button uk-button-text uk-text-meta">پیش‌نویس</a> |
+                    <a href="?state=-1" class="uk-button uk-button-text uk-text-meta">زباله‌دان</a>
+                  @endif
+                </div>
             </div>
             <div class="uk-margin">
                 <ul uk-accordion>
-                    <li class="uk-close">
+                    <li class="uk-close uk-disabled">
                         <a class="uk-accordion-title uk-text-meta" href="#">
                             <span uk-icon="settings"></span>
                             اعمال فیلتر
@@ -75,7 +96,7 @@
                                             نوع ترکیب
                                         </div>
                                         <div class="uk-form-controls" id="statement-filter">
-                                            <select name="condition_type" class="uk-select uk-disabled">
+                                            <select name="" class="uk-select uk-disabled">
                                                 <option value="and">و</option>
                                                 <option value="or">یا</option>
                                             </select>

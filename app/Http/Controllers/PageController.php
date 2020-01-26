@@ -20,6 +20,8 @@ class PageController extends Controller
         $page = new Page();
         $page->title = $request['title'];
         $page->content = $request['content'];
+        $page->meta_description = isset($request['meta-description']) ? $request['meta-description'] : '';
+        $page->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
         $page->user_id = Auth::id();
         if ($request['publish']) {
             $page->state = 1;
@@ -31,9 +33,20 @@ class PageController extends Controller
         return redirect(route('Page > Edit', $page->id));
     }
 
-    public function Manage()
+    public function Manage(Request $request)
     {
-        $pages = Page::paginate(20);
+      // to fetch deleted items
+      if ($request->has('state') && $request['state'] == '-1') {
+          $pages = Page::where('state', '-1')->latest()->paginate(15);
+      }
+      // to fetch drafted items
+      elseif ($request->has('state') && $request['state'] == '0') {
+          $pages = Page::where('state', '0')->latest()->paginate(15);
+      }
+      // to fetch all items [except deleted]
+      else {
+          $pages = Page::where('state', '!=', -1)->latest()->paginate(15);
+      }
         return view('admin.page.manage', compact('pages'));
     }
 
@@ -58,6 +71,8 @@ class PageController extends Controller
         $page = Page::find($id);
         $page->title = $request['title'];
         $page->content = $request['content'];
+        $page->meta_description = isset($request['meta-description']) ? $request['meta-description'] : '';
+        $page->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
         if ($request['draft']) {
             $page->state = $page->previous_state;
             $page->state = 0;

@@ -25,12 +25,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        Schema::create('article_user', function (Blueprint $table) {
-            $table->unsignedBigInteger('article_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('user_id')->unsigned();
-            $table->primary(['article_id', 'user_id']);
-        });
     }
 
     /**
