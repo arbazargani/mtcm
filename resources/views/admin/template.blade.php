@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Tiny-CMS" />
     <meta name="author" content="" />
+    <meta name="robots" content="noindex, nofollow">
     @yield('meta')
     <link rel="stylesheet" href="{{ asset('assets/css/uikit-rtl.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />

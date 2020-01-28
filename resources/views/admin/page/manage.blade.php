@@ -104,8 +104,8 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{ $pages->links() }}
                 </div>
+                {{ $pages->appends(request()->query())->render("pagination::uikit") }}
             @else
                 <div class="uk-alert-warning" uk-alert>
                     <a class="uk-alert-close" uk-close></a>

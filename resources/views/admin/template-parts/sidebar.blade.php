@@ -19,7 +19,7 @@
     <ul class="uk-nav uk-nav-default tm-nav">
         <li class="uk-nav-header">کاربران</li>
         <li class=""><a href="{{ route('Profile') }}">پروفایل شما</a></li>
-        <li class=""><a>سایر کاربران</a></li>
+        <li class=""><a href="{{ route('Users > Manage') }}">سایر کاربران</a></li>
     </ul>
 </div>
 {{-- Sidebar ends --}}

@@ -34,8 +34,13 @@ Route::post('/comment/{id}/submit' ,'CommentController@Submit')->name('Comment >
 Route::prefix('admin')->middleware('auth', 'HasAdminAccess')->group(function () {
     Route::get('/', 'AdminController@Index')->name('Admin');
 
-    Route::get('profile', 'AdminController@Profile')->name('Profile');
-    Route::post('profile/update', 'AdminController@Update')->name('Profile > Update');
+    Route::get('profile', 'UserController@Profile')->name('Profile');
+    Route::post('profile/update', 'UserController@Update')->name('Profile > Update');
+
+    Route::get('users', 'UserController@Manage')->name('Users > Manage');
+    Route::post('users/{id}/update', 'UserController@Update')->name('User > Update');
+    Route::post('users/{id}/lock', 'UserController@Lock')->name('User > Lock');
+    Route::post('users/{id}/unlock', 'UserController@Unlock')->name('User > Unlock');
 
     Route::get('article/new', 'ArticleController@New')->name('Article > New');
     Route::post('article/new/submit', 'ArticleController@Submit')->name('Article > Submit');

@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
             'username' => 'root',
             'password' => bcrypt('root'),
             'rule' => 'admin',
+            'state' => '1',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -30,6 +31,19 @@ class UserTableSeeder extends Seeder
             'username' => 'sanix',
             'password' => bcrypt('sanix'),
             'rule' => 'admin',
+            'state' => '1',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        // Mamber: Siamak Sazgar
+        DB::table('users')->insert([
+            'name' => 'سیامک',
+            'family' => 'سازگار',
+            'email' => 'info@azgar.ir',
+            'username' => 'sia',
+            'password' => bcrypt('sia'),
+            'rule' => 'member',
+            'state' => '0',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
