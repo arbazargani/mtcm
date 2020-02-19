@@ -31,7 +31,7 @@ Route::get('/author/{username}', 'UserController@Archive')->name('User > Archive
 
 Route::post('/comment/{id}/submit' ,'CommentController@Submit')->name('Comment > Submit');
 
-Route::prefix('admin')->middleware('auth', 'HasAdminAccess')->group(function () {
+Route::prefix('admin')->middleware('auth', 'HasAdminAccess', 'CheckPageState')->group(function () {
     Route::get('/', 'AdminController@Index')->name('Admin');
 
     Route::get('profile', 'UserController@Profile')->name('Profile');

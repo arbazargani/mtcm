@@ -104,8 +104,10 @@
                     </div>
                     <hr class="uk-divider-icon">
                     <div class="uk-container">
+                      <div class="uk-card uk-card-secondary uk-card-body uk-border-rounded">
                         <h4 class="uk-h4 tm-heading-fragment">تصویر نوشته</h4>
                         <input type="file" name="cover" id="cover">
+                      </div>
                     </div>
                 </div>
             </form>
