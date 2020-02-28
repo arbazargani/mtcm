@@ -75,3 +75,9 @@ Route::prefix('admin')->middleware('auth', 'HasAdminAccess', 'CheckPageState')->
     Route::post('comment/unapprove/{id}/', 'CommentController@Unapprove')->name('Comment > Unapprove');
     Route::post('comment/delete/{id}', 'CommentController@Delete')->name('Comment > Delete');
 });
+
+Route::get('/sitemap_index.xml', 'SitemapController@Index');
+Route::get('/article-sitemap.xml', 'SitemapController@Article')->name('Sitemap > Articles');
+Route::get('/page-sitemap.xml', 'SitemapController@Page')->name('Sitemap > Pages');
+Route::get('/category-sitemap.xml', 'SitemapController@Category')->name('Sitemap > Categories');
+Route::get('/tag-sitemap.xml', 'SitemapController@Tag')->name('Sitemap > Tags');

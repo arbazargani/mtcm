@@ -10,6 +10,7 @@
     @yield('meta')
     <link rel="stylesheet" href="{{ asset('assets/css/uikit-rtl.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+    <link rel="canonical" href="{{ urldecode(url()->current()) }}" />
     <script src="{{ asset('assets/js/uikit.min.js') }}"></script>
     <script src="{{ asset('assets/js/uikit-icons.min.js') }}"></script>
     <style media="screen">
