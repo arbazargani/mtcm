@@ -81,3 +81,5 @@ Route::get('/article-sitemap.xml', 'SitemapController@Article')->name('Sitemap >
 Route::get('/page-sitemap.xml', 'SitemapController@Page')->name('Sitemap > Pages');
 Route::get('/category-sitemap.xml', 'SitemapController@Category')->name('Sitemap > Categories');
 Route::get('/tag-sitemap.xml', 'SitemapController@Tag')->name('Sitemap > Tags');
+
+Route::get('/rss', 'FeedController@Index')->name('Rss');
