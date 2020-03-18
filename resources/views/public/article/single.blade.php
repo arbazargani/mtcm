@@ -70,7 +70,11 @@
         </content>
           <hr class="uk-divider-icon">
         <comments>
-          @include('public.article.comments')
+          @if( env('DISQUS_SYSTEM') )
+            @include('public.article.disqus')
+          @else
+            @include('public.article.comments')
+          @endif
         </comments>
       </article>
     </div>
