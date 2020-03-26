@@ -36,8 +36,7 @@
 </head>
 <body>
 <div>
-    @include('public.template-parts.header')
-    @include('admin.template-parts.sidebar')
+    @include('admin.template-parts.offcanvas')
     @yield('content')
     @include('admin.template-parts.footer')
 </div>

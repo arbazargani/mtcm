@@ -1,4 +1,4 @@
-{{-- Sidebar stauk-margin-auto uk-text-justifyrts --}}
+{{-- Sidebar start uk-margin-auto uk-text-justifyrts --}}
 <div class="tm-sidebar-right uk-visible@m uk-align-right uk-box-shadow-medium" style="
                                                                                         padding: 45px 45px 60px 45px;
                                                                                         overflow: auto;
