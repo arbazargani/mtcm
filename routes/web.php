@@ -37,6 +37,10 @@ Route::prefix('admin')->middleware('auth', 'HasAdminAccess', 'CheckPageState')->
     Route::get('profile', 'UserController@Profile')->name('Profile');
     Route::post('profile/update', 'UserController@Update')->name('Profile > Update');
 
+    Route::get('settings', 'SettingController@Manage')->name('Setting');
+    Route::post('settings/update', 'SettingController@Update')->name('Setting > Update');
+
+
     Route::get('users', 'UserController@Manage')->name('Users > Manage');
     Route::post('users/{id}/update', 'UserController@Update')->name('User > Update');
     Route::post('users/{id}/lock', 'UserController@Lock')->name('User > Lock');

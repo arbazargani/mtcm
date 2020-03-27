@@ -17,6 +17,7 @@ class ArticleController extends Controller
         $articles = Article::latest()->where('state', '=', 1)->paginate(2);
         return ArticleResource::collection($articles);
     }
+
     public function New()
     {
         $categories = Category::all();

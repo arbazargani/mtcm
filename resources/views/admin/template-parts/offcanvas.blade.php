@@ -2,7 +2,7 @@
     <!-- <button class="uk-button uk-button-primary" type="button" uk-toggle="target: #offcanvas-nav"><span uk-icon="menu"></span></button> -->
     <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"></a>
     <div class="uk-float-left">
-    <a href="{{ route('Profile') }}">{{ Auth::User()->username }} <span uk-icon="user"></span></a> 
+    <a href="{{ route('Profile') }}">{{ Auth::User()->username }} <span uk-icon="user"></span></a>
     </div>
 </div>
 
@@ -29,6 +29,14 @@
             <ul class="uk-nav-sub">
                 <li class=""><a href="{{ route('Profile') }}">پروفایل شما</a></li>
                 <li class=""><a href="{{ route('Users > Manage') }}">سایر کاربران</a></li>
+            </ul>
+        </ul>
+        <hr>
+
+        <ul class="uk-nav uk-nav-default tm-nav">
+            <h5><span uk-icon="settings"></span> تنظیمات</h5>
+            <ul class="uk-nav-sub">
+                <li class=""><a href="{{ route('Setting') }}">تنظیمات سیستم</a></li>
             </ul>
         </ul>
 
