@@ -47,7 +47,7 @@ class CategoryController extends Controller
         // $category = Category::with('article')->where('slug', '=', $slug)->get();
         $category = Category::with('article')->where('slug', '=', $slug)->get();
         if (!count($category)) {
-          return abort('404')->get();
+          return abort('404');
         }
 
         //handle array of objects pagination
@@ -57,10 +57,10 @@ class CategoryController extends Controller
 
         // Create a new Laravel collection from the array data
         // $itemCollection = collect($items);
-        $itemCollection = collect($category[0]->article->reverse());
+        $itemCollection = collect($category[0]->article->where('state', 1)->reverse());
 
         // Define how many items we want to be visible in each page
-        $perPage = 9;
+        $perPage = 10;
 
         // Slice the collection to get the items to display in current page
         $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();

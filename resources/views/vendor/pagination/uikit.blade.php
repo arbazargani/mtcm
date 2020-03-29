@@ -1,4 +1,7 @@
 @if ($paginator->hasPages())
+<div class="uk-article">
+<div class="article uk-margin uk-background-default uk-box-shadow-small uk-border-rounded">
+<div class="uk-container">
     <ul class="uk-pagination uk-flex-center" uk-margin>
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
@@ -49,4 +52,7 @@
         </li>
         @endif
     </ul>
+</div>
+</div>
+</div>
 @endif

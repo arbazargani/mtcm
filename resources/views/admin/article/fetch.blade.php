@@ -29,9 +29,16 @@
         @endif
     </td>
     <td>
+        @if($article->state == -1)
+        <form action="{{ route('Article > Delete Permanently', $article->id) }}" method="POST">
+            @csrf
+            <button type="submit" class="uk-button uk-button-text uk-text-danger">حذف همیشگی</button>
+        @else
         <form action="{{ route('Article > Delete', $article->id) }}" method="POST">
             @csrf
             <button type="submit" class="uk-button uk-button-text uk-text-danger">حذف</button>
+        @endif
+
         </form>
     </td>
     <td>

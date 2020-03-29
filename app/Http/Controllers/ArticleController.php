@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
-use App\Category;
-use App\Comment;
-use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use function Composer\Autoload\includeFile;
+use Illuminate\Support\Facades\Log;
+
+use App\Article;
+use App\Category;
+use App\Comment;
+use App\Tag;
+use App\User;
 
 class ArticleController extends Controller
 {
     public function All() {
         $articles = Article::latest()->where('state', '=', 1)->paginate(2);
         return ArticleResource::collection($articles);
+    }
+
+    public function NoArabic($input) {
+        $output = str_replace('ي', 'ی', $input);
+        $output = str_replace('ك', 'ک', $output);
+        return $output;
     }
 
     public function New()
@@ -48,12 +57,15 @@ class ArticleController extends Controller
         }
 
         $article = new Article();
-        $article->title = $request['title'];
-        $article->content = $request['content'];
-        $article->meta_description = isset($request['meta-description']) ? $request['meta-description'] : '';
+        $article->title = $this->noArabic($request['title']);
+        $article->content = $this->NoArabic($request['content']);
+        
+        $article->meta_description = isset($request['meta-description']) ? $this->noArabic($request['meta-description']) : '';
         $article->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
+
         $article->cover = $fileName;
         $article->user_id = Auth::id();
+        
         if ($request['publish']) {
             $article->state = 1;
             $article->previous_state = 1;
@@ -66,11 +78,20 @@ class ArticleController extends Controller
         $article->category()->attach($request['categories']);
         $article->tag()->attach($request['tags']);
 
+        $log = $article->created_at . " - article created. | id:" . $article->id . " | state:";
+        $log .= $article->state ? 'published' : 'draft';
+        
+        Log::info($log);
+
         return redirect(route('Article > Edit', $article->id));
     }
 
     public function Manage(Request $request)
     {
+        $categories = Category::all();
+        $tags = Category::all();
+        $users = User::all();
+
         // to fetch deleted items
         if ($request->has('state') && $request['state'] == '-1') {
             $articles = Article::where('state', '-1')->latest()->paginate(15);
@@ -83,7 +104,7 @@ class ArticleController extends Controller
         else {
             $articles = Article::where('state', '!=', -1)->latest()->paginate(15);
         }
-        return view('admin.article.manage', compact('articles'));
+        return view('admin.article.manage', compact(['articles', 'categories', 'tags', 'users']));
     }
 
     public function Show($slug)
@@ -129,10 +150,13 @@ class ArticleController extends Controller
         }
 
         $article = Article::find($id);
-        $article->title = $request['title'];
-        $article->content = $request['content'];
-        $article->meta_description = isset($request['meta-description']) ? $request['meta-description'] : '';
+
+        $article->title = $this->noArabic($request['title']);
+        $article->content = $this->noArabic($request['content']);
+
+        $article->meta_description = isset($request['meta-description']) ? $this->noArabic($request['meta-description']) : '';
         $article->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
+        
         if ($request->hasFile('cover')) {
             $article->cover = $fileName;
         }
@@ -150,12 +174,18 @@ class ArticleController extends Controller
         return redirect(route('Article > Edit', $id));
     }
 
-    public function DeletePermanently($id)
+    public function DeleteTemporary($id)
     {
         $article = Article::find($id);
         $article->previous_state = $article->state;
         $article->state=-1;
         $article->save();
+        return back();
+    }
+
+    public function DeletePermanently($id)
+    {
+        $article = Article::where('id',$id)->delete($id);
         return back();
     }
 

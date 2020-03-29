@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="tm-main uk-section uk-section-default">
+    <div class="tm-main uk-section uk-section-secondary">
         <div class="uk-container uk-container-large">
             <h2 id="lightbox" class="uk-h2 tm-heading-fragment">
                 ایجاد مقاله
@@ -40,7 +40,7 @@
                 </div>
                 <div class="uk-width-1-3@m">
                     <dl class="uk-description-list uk-description-list-divider">
-                        <dt>در نظر داشته باشید:</dt>
+                        <dt style="color: white;">در نظر داشته باشید:</dt>
                         <hr>
                         <dd class="uk-text-warning">نام کاربری قابل تغییر نیست.</dd>
                         <dd class="uk-text-warning">ایمیل قابل تغییر نیست.</dd>

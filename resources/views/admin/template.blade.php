@@ -24,10 +24,9 @@
             height: 500
         });
     </script>
-    <!-- Load React. -->
-    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <!-- google charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <style>
         *:not(i) {
             font-family: IRANSans !important;
@@ -35,9 +34,16 @@
     </style>
 </head>
 <body>
-<div>
-    @include('admin.template-parts.offcanvas')
-    @yield('content')
+<div class="uk-background-secondary" uk-grid>
+    <div class="uk-visible@m" style="border: 1px solid lightgray;">
+        @include('admin.template-parts.sidebar')
+    </div>
+    <div class="uk-hidden@m uk-width-1-1">
+        @include('admin.template-parts.offcanvas')
+    </div>
+    <div class="uk-width-expand@m">
+        @yield('content')
+    </div>
     @include('admin.template-parts.footer')
 </div>
     @include('admin.template-parts.scripts')

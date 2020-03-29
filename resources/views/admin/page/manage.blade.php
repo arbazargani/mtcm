@@ -5,14 +5,14 @@
 @endsection
 
 @section('content')
-    <div class="tm-main uk-section uk-section-default">
+    <div class="tm-main uk-section uk-section-secondary">
         <div class="uk-container uk-container-small">
             <h2 id="lightbox" class="uk-h2 tm-heading-fragment">
                 مدیریت برگه‌ها
             </h2>
             <div class="uk-margin">
                 <div>
-                    <a href="{{ route('Page > New') }}" target="_blank" class="uk-button uk-button-small uk-border-rounded uk-button-primary">ایجاد مقاله</a>
+                    <a href="{{ route('Page > New') }}" target="_blank" class="uk-button uk-button-small uk-border-rounded uk-button-primary">ایجاد برگه</a>
                 </div>
                 <div class="uk-margin">
                   @if(isset($_GET['state']) && $_GET['state'] == 'all')
@@ -39,7 +39,6 @@
             @if(count($pages))
                 <div class="uk-overflow-auto">
                     <table class="uk-table uk-table-striped uk-table-hover">
-                        {{--                            <caption>آخرین برگه‌ها</caption>--}}
                         <thead>
                         <tr>
                             <th>عنوان برگه</th>
@@ -92,9 +91,16 @@
                                     @endif
                                 </td>
                                 <td>
+                                    @if($page->state == -1)
+                                    <form action="{{ route('Page > Delete Permanently', $page->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="uk-button uk-button-text uk-text-danger">حذف همیشگی</button>
+                                    @else
                                     <form action="{{ route('Page > Delete', $page->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="uk-button uk-button-text uk-text-danger">حذف</button>
+                                    @endif
+
                                     </form>
                                 </td>
                                 <td>
@@ -108,7 +114,7 @@
                 {{ $pages->appends(request()->query())->render("pagination::uikit") }}
             @else
                 <div class="uk-alert-warning" uk-alert>
-                    <a class="uk-alert-close" uk-close></a>
+                    <a class="uk-alert-close" style="color: black" uk-close></a>
                     <p>برگه‌ای در سیستم موجود نیست.</p>
                 </div>
             @endif

@@ -1,50 +1,71 @@
 @extends('public.template')
 
 @section('meta')
-<title>{{ 'آرشیو برچسب ' . $tag[0]->name }}</title>
+    <title>{{ 'آرشیو برچسب ' . $tag[0]->name . ' ' . $settings['title_delimiter']->value . ' ' . $settings['website_name']->value }}</title>
+    <meta name="description" content="آرشیو برچسب ‌{{ $tag[0]->name }}">
+    <meta name="robots" content="index, follow">
 @endsection
 
 @section('content')
-    @php
-        $c = 0;
-    @endphp
-<div class="uk-padding-small" uk-grid>
-    <div class="uk-article uk-width-1-1@m">
-        <article class="article uk-padding">
-            <h1>{{ 'آرشیو برچسب: ' . $tag[0]->name }}</h1>
+
+<!-- breadcrumbs -->
+<ul class="uk-breadcrumb uk-margin-medium-right">
+    <li><a href="{{ route('Home') }}">خانه</a></li>
+    <li class="uk-disabled"><a>برچسب</a></li>
+    <li><a href="{{ route('Tag > Archive', $tag[0]->slug) }}">{{ $tag[0]->name }}</a></li>
+    <li class="uk-disabled"><a>آرشیو</a></li>
+</ul>
+<!-- breadcrumbs -->
+
+<!-- content -->
+<div class="uk-article">
+            <h1 class="uk-text-lead">{{ 'آرشیو برچسب: ' . $tag[0]->name }}</h1>
             <hr>
-            @if(count($PaginatedCategories))
-                <div class="uk-child-width-1-3@m" uk-grid="masonry: true" uk-grid>
-                    @foreach ($PaginatedCategories as $article)
-                        @if($article->state == 1)
-                            @php
-                                $c += 1;
-                            @endphp
-                            <div>
-                                <div class="uk-card uk-card-default uk-card-hover uk-border-rounded">
-                                    <div class="uk-card-media-top">
-                                        <a href="{{ route('Article > Single', $article->slug) }}"><img src="/storage/uploads/articles/images/{{ $article->cover }}" alt="" class="uk-border-rounded" style="width: 100%; height: 180px;"></a>
-                                    </div>
-                                    <div class="uk-card-body">
-                                        <div class="uk-card-badge uk-label">{{ $article->views }} بازدید</div>
-                                        <h2 class="uk-card-title uk-text-lead"><a href="{{ route('Article > Single', $article->slug) }}" class="uk-link-heading">{{ $article->title }}</a></h2>
-                                        <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ $article->created_at }}">{{ $article->created_at }}</time></p>
-                                        <p>{{ html_entity_decode(strip_tags(substr($article->content, 0, 100))) . '...' }}</p>
-                                    </div>
-                                    <a class="uk-button uk-button-primary" style="width: 100%; border-radius: 0px 0px 5px 5px;" href="{{ route('Article > Single', $article->slug) }}">بازدید</a>
+            @if(count($PaginatedTags))
+            @foreach($PaginatedTags as $article)
+            <div class="article uk-margin @if($loop->even) uk-background-default @else uk-background-secondary uk-light @endif uk-border-rounded uk-box-shadow-small uk-box-shadow-hover-large">
+                <div class="uk-container" uk-grid>
+                    <div class="uk-width-1-3@m">
+                        <a class="uk-link-reset" href="{{ route('Article > Single', $article->slug) }}"><img class="uk-border-rounded" src="/storage/uploads/articles/images/{{ $article->cover }}" style="width: auto;"></a>
+                    </div>
+                    <div class="uk-width-2-3@m">
+                        <p>
+                            <a class="uk-link-reset" href="{{ route('Article > Single', $article->slug) }}"><h3 class="uk-margin-small-top uk-text-lead">{{ $article->title }}</h3></a>
+                            <hr class="uk-divider-small">
+                            <div uk-grid>
+                                <div class="uk-width-5-6">
+                                    <p class="uk-text-truncate">
+                                        <span>{{ $article->meta_description }}</span>
+                                    </p>
+                                </div>
+
+                                <div class="uk-width-1-6">
+                                    <a class="uk-bage uk-badge" href="{{ route('Article > Single', $article->slug) }}"><span uk-icon="arrow-right"></span></a>
                                 </div>
                             </div>
-                        @endif
-                    @endforeach
+                            
+                        </p>
+                    </div>
                 </div>
-            @endif
-            {{ $PaginatedCategories->links("pagination::uikit") }}
-            @if(!$c)
-            <div class="uk-alert-warning" uk-alert>
-            <p>نوشته‌ای با این برچسب وجود ندارد.</p>
+            </div>
+            @endforeach
+
+            <!-- paginator -->
+            {{ $PaginatedTags->links("pagination::uikit") }}
+            <!-- paginator -->
+
+            @else
+            <div class="article uk-margin uk-background-default uk-border-rounded uk-box-shadow-small uk-box-shadow-hover-large">
+                <div class="uk-container uk-padding-remove">
+                    <div class="uk-alert uk-alert-warning">
+                        <p>نوشته‌ای در این برچسب وجود ندارد</p>
+                    </div>
+                </div>
             </div>
             @endif
-        </article>
-    </div>
-</div>
+        
+        </div>
+<!-- content -->
+
+
 @endsection

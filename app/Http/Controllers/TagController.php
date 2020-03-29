@@ -42,7 +42,7 @@ class TagController extends Controller
     {
         $tag = Tag::with('article')->where('slug', '=', $slug)->get();
         if (!count($tag)) {
-          return abort('404')->get();
+          return abort('404');
         }
 
         //handle array of objects pagination
@@ -52,10 +52,10 @@ class TagController extends Controller
 
         // Create a new Laravel collection from the array data
         // $itemCollection = collect($items);
-        $itemCollection = collect($tag[0]->article->reverse());
+        $itemCollection = collect($tag[0]->article->where('state', 1)->reverse());
 
         // Define how many items we want to be visible in each page
-        $perPage = 9;
+        $perPage = 10;
 
         // Slice the collection to get the items to display in current page
         $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
@@ -66,8 +66,8 @@ class TagController extends Controller
         // set url path for generted links
         $paginatedItems->setPath($request->url());
 
-        $PaginatedCategories = $paginatedItems;
+        $PaginatedTags = $paginatedItems;
   
-        return view('public.tag.archive', compact('tag', 'PaginatedCategories'));
+        return view('public.tag.archive', compact('tag', 'PaginatedTags'));
     }
 }

@@ -27,8 +27,8 @@ class SettingController extends Controller
     public function Update(Request $request) {
         $request->validate([
             'website_name' => 'required|min:1',
-            'meta_title' => 'min:20',
-            'meta_description' => 'min:20',
+            'meta_title' => 'min:1',
+            'meta_description' => 'min:1',
             'admin_email' => 'required|min:8',
             'title_delimiter' => 'required|min:1|max:1'
         ]);

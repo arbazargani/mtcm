@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
-use App\Category;
-use App\Tag;
-use App\User;
 use Illuminate\Support\ServiceProvider;
 use Hekmatinasser\Verta\Verta;
+
+use App\Article;
+use App\Category;
+use App\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,17 +28,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-        $categories = Category::all();
-        $tags = Tag::all();
-        $users = User::all();
-        view()->share(['categories'=> $categories, 'tags' => $tags, 'users' => $users]);
+        $categories = Category::where('id', '!=', 1)->get();
+        $latestArticles = Article::where('state', 1)->latest()->limit(5)->get();
+        $popularArticles = Article::where('state', 1)->orderBy('views', 'desc')->limit(3)->get();
+        $notPopularArticles = Article::where('state', 1)->orderBy('views', 'asc')->limit(10)->get();
+        $settings['website_name'] = Setting::where('name', 'website_name')->first();
+        $settings['title_delimiter'] = Setting::where('name', 'title_delimiter')->first();
 
-        // \Blade::directive('jalali', function($timestamp) {
-        //   $jalaliDate = new Verta("$timestamp");
-        //   $jalaliDate = Verta::instance("$timestamp");
-        //   $jalaliDate = Facades\Verta::instance("$timestamp");
-        //   return "<?php echo $jalaliDate; ";
-        //});
+        view()->share( compact( [
+            'latestArticles',
+            'categories',
+            'settings',
+            'notPopularArticles',
+            'popularArticles'
+        ] ) );
     }
 }

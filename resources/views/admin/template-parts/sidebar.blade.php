@@ -1,25 +1,45 @@
-{{-- Sidebar start uk-margin-auto uk-text-justifyrts --}}
-<div class="tm-sidebar-right uk-visible@m uk-align-right uk-box-shadow-medium" style="
-                                                                                        padding: 45px 45px 60px 45px;
-                                                                                        overflow: auto;
-                                                                                        position: inherit;
-                                                                                        height: 100%;
-">
+<div class="uk-padding">
     <ul class="uk-nav uk-nav-default tm-nav">
-        <li class="uk-nav-header">محتوا</li>
-        <li class=""><a href="{{ route('Article > Manage') }}">مقالات</a></li>
-        <li class=""><a href="{{ route('Page > Manage') }}">صفحات</a></li>
-        <li class=""><a href="{{ route('Category > Manage') }}">دسته‌ها</a></li>
-        <li class=""><a href="{{ route('Tag > Manage') }}">برچسب‌ها</a></li>
-        <li class=""><a href="{{ route('Comment > Manage') }}">دیدگاه‌ها</a></li>
+            <h5 class="uk-light"><a class="uk-link-reset" href="{{ route('Admin') }}"><span class="uk-icon-button" uk-icon="icon: home"></span> داشبورد</a></h5>
+            <ul class="uk-nav-sub">
+                <li class=""><a href="{{ route('Home') }}" target="_blank">نمایش وبسایت</a></li>
+                <br>
+                <li class="">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class="uk-button uk-button-danger uk-button" type="submit">خروج</button>
+                    </form>
+                </li>
+            </ul>
     </ul>
-
-    <hr class="uk-divider-small">
+    <hr>
 
     <ul class="uk-nav uk-nav-default tm-nav">
-        <li class="uk-nav-header">کاربران</li>
-        <li class=""><a href="{{ route('Profile') }}">پروفایل شما</a></li>
-        <li class=""><a href="{{ route('Users > Manage') }}">سایر کاربران</a></li>
+        <h5 class="uk-light"><span class="uk-icon-button" uk-icon="file-edit"></span> محتوا</h5>
+        <ul class="uk-nav-sub">
+            <li class=""><a href="{{ route('Article > Manage') }}">مقالات</a></li>
+            <li class=""><a href="{{ route('Page > Manage') }}">صفحات</a></li>
+            <li class=""><a href="{{ route('Category > Manage') }}">دسته‌ها</a></li>
+            <li class=""><a href="{{ route('Tag > Manage') }}">برچسب‌ها</a></li>
+            <li class=""><a href="{{ route('Comment > Manage') }}">دیدگاه‌ها</a></li>
+        </ul>
+        <li>
+    </ul>
+    <hr>
+
+    <ul class="uk-nav uk-nav-default tm-nav">
+        <h5 class="uk-light"><span class="uk-icon-button"  uk-icon="users"></span> کاربران</h5>
+        <ul class="uk-nav-sub">
+            <li class=""><a href="{{ route('Profile') }}">پروفایل شما</a></li>
+            <li class=""><a href="{{ route('Users > Manage') }}">سایر کاربران</a></li>
+        </ul>
+    </ul>
+    <hr>
+
+    <ul class="uk-nav uk-nav-default tm-nav">
+        <h5 class="uk-light"><span class="uk-icon-button"  uk-icon="settings"></span> تنظیمات</h5>
+        <ul class="uk-nav-sub">
+            <li class=""><a href="{{ route('Setting') }}">تنظیمات سیستم</a></li>
+        </ul>
     </ul>
 </div>
-{{-- Sidebar ends --}}

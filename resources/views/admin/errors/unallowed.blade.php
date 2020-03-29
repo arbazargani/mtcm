@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="tm-main uk-section uk-section-default">
+    <div class="tm-main uk-section uk-section-secondary">
         <div class="uk-container uk-container-small uk-position-relative">
             <div class="uk-alert-danger" uk-alert>
                 <a class="uk-alert-close"></a>

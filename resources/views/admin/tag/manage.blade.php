@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="tm-main uk-section uk-section-default">
+    <div class="tm-main uk-section uk-section-secondary">
         <div class="uk-container uk-container-large">
             <h2 id="lightbox" class="uk-h2 tm-heading-fragment">
                 ایجاد برچسب
@@ -74,7 +74,7 @@
                         {{ $tags->links() }}
                     @else
                         <div class="uk-alert-warning" uk-alert>
-                            <a class="uk-alert-close" uk-close></a>
+                            <a class="uk-alert-close" syle="color: black;" uk-close></a>
                             <p>هیچ برچسبی در سیستم ثبت نشده است.</p>
                         </div>
                     @endif

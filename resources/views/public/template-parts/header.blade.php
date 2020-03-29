@@ -1,87 +1,102 @@
-<div class="tm-navbar-container uk-navbar-container uk-light uk-active">
-    <div class="uk-container uk-container-expand uk-background-secondary">
-        <nav class="uk-navbar">
-            <div class="uk-navbar-right">
-                <a class="uk-navbar-item uk-logo" href="{{ route('Home') }}">
-                    <img
-                        src="{{ asset('assets/image/logo.png') }}" alt="سیستم مدیریت محتوای تاینی"
-                        style="width: 48px; height: 48px;"></a>
-                <div class="uk-width-auto">
-                    <h4 class="uk-margin-remove-bottom uk-visible@s">سیستم مدیریت محتوای تاینی</h4>
-                </div>
-            </div>
-            <div class="uk-navbar-left">
-                <ul class="uk-navbar-nav uk-visible@m">
-                    @if(!Auth::check())
-                    <li class="uk-active">
-                        <a href="{{ route('login') }}"><span style="padding: 2px 0px 4px;">ورود</span></a>
-                    </li>
-                    @else
-                    <li class="">
-                        <a href="{{ route('Admin') }}">
-                            <span style="background: #FFFFFF; color: #2088F0; padding: 2px 12px 4px;">پنل مدیریت</span>
-                        </a>
-                    </li>
-
-                        <li class="">
-                            <a href="{{ route('User > Logout') }}">خروج</a>
-                        </li>
-                    @endif
-                    <li class="">
-                        <a href="javascript:void(0)" class="uk-icon-link" aria-expanded="false">
-                            <span>صفحات مهم</span>
-                            <i class="fa fa-angle-down fa-lg fa-fw"></i>
-                        </a>
-                        <div uk-dropdown="pos: bottom-justify; mode: click; offset: -16;"
-                             class="uk-padding-small uk-dropdown"
-                             style="width: 170.406px; left: -29.7969px; top: 64px;">
-                            <ul class="uk-nav uk-dropdown-nav">
-                                <li class="">
-                                    <a href="#" target="_blank">
-                                        <span>فرم تماس</span>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a href="#" target="_self">
-                                        <span>ثبت سفارش</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                    <!-- start of mobile menu -->
-                    <button class="uk-button uk-button-default uk-margin-small uk-hidden@m" type="button" uk-toggle="target: #modal-menu" style="margin-left: 3px;">فهرست</button>
-                    <div id="modal-menu" uk-modal>
-                      <div class="uk-modal-dialog uk-modal-body">
-                        <button class="uk-modal-close-default" type="button" uk-close></button>
-                        @if(!Auth::check())
-                            <div>
-                                <a class="uk-button uk-button-primary" href="{{ route('login') }}">ورود</a>
-                            </div>
-                        @else
-                           <div class="uk-flex uk-flex-center">
-                            <a href="{{ route('Admin') }}" style="margin: 0 2px 0 2px;">
-                                <span class="uk-button uk-button-primary" style="text-decoration: none;">پنل مدیریت</span>
-                            </a>
-                            <a href="{{ route('User > Logout') }}" style="margin: 0 2px 0 2px;">
-                                <span class="uk-button uk-button-danger" style="text-decoration: none;">خروج</span>
-                            </a>
-                           </div>
-                        @endif
-                            <hr class="uk-divider-icon">
-                            <span>فهرست دسته‌بندی ها</span>
-                            <ul>
+<nav class="uk-navbar-container uk-margin uk-box-shadow-small" id="navbar" uk-navbar>
+    <a class="uk-navbar-item uk-logo" href="#">{{ $settings['website_name']->value }}</a>
+    <div class="uk-navbar-right uk-margin-small-right uk-visible@m">
+        <ul class="uk-navbar-nav">
+            <li><a href="{{ route('Home') }}">خانه</a></li>
+            <li>
+                <a href="#">بلاگ</a>
+                <div class="uk-navbar-dropdown uk-navbar-dropdown-width-2">
+                    <div class="uk-navbar-dropdown-grid uk-child-width-1-2" uk-grid>
+                        <div>
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li class="uk-nav-header">دسته‌بندی مطالب</li>
                                 @foreach($categories as $category)
-                                    @if($category->id !== 1)
-                                        <li><a href="{{ route('Category > Archive', $category->slug) }}">{{ $category->name }}</a></li>
-                                    @endif
+                                @php $half = (INT) round($loop->count/2) @endphp
+                                @if($loop->iteration <= $half)
+                                @if($category->id != 1)
+                                <li class="uk-margin-right"><a href="{{ route('Category > Archive', $category->slug) }}">{{ $category->name }}</a></li>
+                                @endif
+                                @endif
                                 @endforeach
                             </ul>
-                      </div>
+                        </div>
+                        <div>
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li class="uk-nav-header uk-invisible">دسته‌بندی مطالب</li>
+                                @foreach($categories as $category)
+                                @if($loop->iteration > $half)
+                                @if($category->id != 1)
+                                <li class="uk-margin-right"><a href="{{ route('Category > Archive', $category->slug) }}">{{ $category->name }}</a></li>
+                                @endif
+                                @endif
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
-                    <!-- end of mobile menu -->
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="uk-navbar-left uk-margin-small-left">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active uk-hidden@m"><a href="" uk-icon="menu" uk-toggle="target: #responsive-menu"></a></li>
+            @if(Auth::check())
+            <div class="uk-navbar-item uk-visible@m">
+                <a class="uk-button uk-button-small uk-background-secondary" href="{{ route('Admin') }}" >پنل مدیریت</a>
             </div>
-        </nav>
+            <div class="uk-navbar-item uk-visible@m">
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button class="uk-button uk-button-text uk-text-muted" type="submit">خروج</button>
+            </form>
+            </div>
+            @endif
+        </ul>
+    </div>
+</nav>
+<!-- Responsive off-canvas menu -->
+<div id="responsive-menu" uk-offcanvas="overlay: true; mode: push">
+    <div class="uk-offcanvas-bar">
+        <button class="uk-offcanvas-close" type="button" uk-close></button>
+        <br>
+        <ul class="uk-nav uk-nav-default">
+            <li class="uk-active uk-navbar-header uk-margin-bottom"><a href="{{ route('Home') }}"><span class="uk-icon-button" uk-icon="home"></span> خانه</a></li>
+            <li class="uk-active uk-navbar-header"><a href="{{ route('Blog') }}"><span class="uk-icon-button" uk-icon="file-text"></span> بلاگ</a></li>
+            <li class="uk-parent uk-margin-bottom">
+                <ul class="uk-nav-sub">
+                @foreach($categories as $category)
+                @if($category->id != 1)
+                <li class="uk-margin-right"><a href="{{ route('Category > Archive', $category->slug) }}">{{ $category->name }}</a></li>
+                @endif
+                @endforeach
+                </ul>
+            </li>
+            <li class="uk-active uk-navbar-header uk-margin-bottom"><a href="{{ route('Blog') }}"><span class="uk-icon-button" uk-icon="microphone"></span> پادکست‌ها</a></li>
+            <li class="uk-active uk-navbar-header uk-margin-bottom"><a href="{{ route('Blog') }}"><span class="uk-icon-button" uk-icon="receiver"></span> ارتباط</a></li>
+            @if(Auth::check())
+            <li class="uk-active uk-navbar-header"><a href="{{ route('Admin') }}"><span class="uk-icon-button" uk-icon="user"></span> پنل مدیریت</a></li>
+            <li class="uk-parent uk-margin-bottom">
+                <ul class="uk-nav-sub">
+                    <li class="uk-margin-right">
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="uk-button uk-button-text uk-text-muted" type="submit">خروج</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+            @endif
+
+            <hr>
+            <div class="uk-container">
+                <p>
+                <a href="#" class="uk-icon-button" uk-icon="instagram"></a>
+                <a href="#" class="uk-icon-button" uk-icon="github"></a>
+                <a href="#" class="uk-icon-button" uk-icon="whatsapp"></a>
+                <a href="#" class="uk-icon-button" uk-icon="mail"></a>
+                </p>
+            </div>
+        </ul>
+
     </div>
 </div>

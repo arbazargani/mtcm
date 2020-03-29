@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="tm-main uk-section uk-section-default">
+    <div class="tm-main uk-section uk-section-secondary">
         <div class="uk-container uk-container-large">
             <h2 id="lightbox" class="uk-h2 tm-heading-fragment">
                 ایجاد صفحه جدید
@@ -21,7 +21,7 @@
             <form class="uk-grid-small uk-position-relative uk-grid" uk-grid action="{{ route('Page > Submit') }}" method="POST">
                 @csrf
                 <div class="uk-width-2-3@m">
-                    <div class="uk-inline uk-width-1-1 uk-first-column">
+                    <div class="uk-inline uk-width-1-1 uk-first-column uk-margin-small-bottom">
                         <input type="text" name="title" id="title" placeholder="عنوان" class="uk-input form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" required style="padding-left: 40px;" autofocus>
                     </div>
                     <div class="uk-inline uk-width-1-1 uk-first-column">

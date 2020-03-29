@@ -61,5 +61,15 @@ class SettingsTableSeeder extends Seeder
             'updated_at' => now()
         ]);
 
+        // google analytics api keys
+        DB::table('settings')->insert([
+            'name' => 'google_analyitics_client-id',
+            'title' => 'کد احراز هویت گوگل آنالیتیکز',
+            'type' => 'text',
+            'value' => '',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
     }
 }

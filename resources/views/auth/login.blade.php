@@ -1,11 +1,16 @@
 @extends('public.template')
 
+@section('meta')
+    <title>ورود {{ "{$settings['title_delimiter']->value} {$settings['website_name']->value}" }}</title>
+    <meta name="description" content="ورود به سیستم">
+    <meta name="robots" content="noindex, follow">
+@endsection
+
 @section('content')
-<div class="uk-container uk-align-center uk-width-1-3@m uk-width-1-2@s uk-padding-remove uk-first-column" style="max-width: 1120px;">
+<div class="uk-container uk-align-center uk-width-1-2@m uk-padding-remove uk-first-column" style="max-width: 1120px;">
     <div class="uk-card uk-card-default uk-box-shadow-small">
         <div class="uk-card-header" style="padding: 15px 30px 17px;">
-            <h2 class="uk-margin-remove uk-visible@s">ورود به سامانه</h2>
-            <h3 class="uk-margin-remove uk-hidden@s">ورود به سامانه</h3>
+            <h1 class="uk-margin-remove uk-text-lead uk-text-center">ورود به سامانه</h1>
         </div>
         <div class="uk-card-body uk-padding-xsmall">
             @if($errors->any())
@@ -27,27 +32,27 @@
                     <input id="password" type="password" placeholder="گذرواژه" class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                 </div>
                 <div class="uk-inline uk-width-1-1 uk-grid-margin uk-first-column">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <input class="uk-checkbox form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                     <label class="form-check-label" for="remember">
-                        {{--{{ __('Remember Me') }}--}}
                         ذخیره سازی اطلاعات ورود
                     </label>
                 </div>
-                <div class="uk-width-1-2@s uk-grid-margin uk-first-column">
-                    <button class="uk-button uk-button-primary uk-width-1-1" style="padding: 0px 8px;" name="LoginFromWeb">ورود به سامانه</button>
+                <div class="uk-width-1-1 uk-grid-margin uk-first-column">
+                    <button class="uk-button uk-button-primary uk-width-1-1" style="padding: 0px 8px;">ورود به سامانه</button>
                 </div>
-                <div class="uk-width-1-2@s uk-grid-margin">
-                    <a class="uk-button uk-button-secondary uk-width-1-1" style="padding: 0px 8px;" href="{{ route('register') }}">ثبت نام</a>
+
+                <div class="uk-width-1-1 uk-text-center uk-first-column">
+                    @if (Route::has('password.request'))
+                        <a class="uk-link uk-link-reset uk-text-meta" href="{{ route('password.request') }}">
+                            رمز عبور خود را فراموش کرده‌اید؟
+                        </a>
+                    @endif
                 </div>
+
             </form>
         </div>
-        <div class="uk-card-footer">
-            @if (Route::has('password.request'))
-                <a class="btn btn-link" href="{{ route('password.request') }}">
-                    {{--{{ __('Forgot Your Password?') }}--}}
-                    رمز عبور خود را فراموش کرده‌اید؟
-                </a>
-            @endif
+        <div class="uk-card-footer uk-text-center">
+                <a class="uk-text-meta uk-link-reset" style="padding: 0px 8px;" href="{{ route('register') }}">ثبت نام</a>
         </div>
     </div>
 </div>

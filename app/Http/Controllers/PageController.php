@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use App\Page;
 
 class PageController extends Controller
 {
@@ -12,22 +13,35 @@ class PageController extends Controller
         return view('admin.page.new');
     }
 
+    public function NoArabic($input) {
+        $output = str_replace('ي', 'ی', $input);
+        $output = str_replace('ك', 'ک', $output);
+        return $output;
+    }
+
     public function Submit(Request $request) {
         $request->validate([
             'title' => 'required|min:1|max:400',
             'content' => 'required|min:1'
         ]);
+
         $page = new Page();
-        $page->title = $request['title'];
-        $page->content = $request['content'];
-        $page->meta_description = isset($request['meta-description']) ? $request['meta-description'] : '';
+
+        $page->title =  $this->noArabic($request['title']);
+        $page->content =  $this->noArabic($request['content']);
+
+        $page->meta_description = isset($request['meta-description']) ?  $this->noArabic($request['meta-description']) : '';
         $page->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
+
         $page->user_id = Auth::id();
+
         if ($request['publish']) {
             $page->state = 1;
+            $page->previous_state = 1;
         }
         if ($request['draft']) {
             $page->state = 0;
+            $page->previous_state = 0;
         }
         $page->save();
         return redirect(route('Page > Edit', $page->id));
@@ -68,11 +82,15 @@ class PageController extends Controller
             'title' => 'required|min:1|max:400',
             'content' => 'required|min:1|'
         ]);
+
         $page = Page::find($id);
-        $page->title = $request['title'];
-        $page->content = $request['content'];
-        $page->meta_description = isset($request['meta-description']) ? $request['meta-description'] : '';
+
+        $page->title =  $this->noArabic($request['title']);
+        $page->content =  $this->noArabic($request['content']);
+
+        $page->meta_description = isset($request['meta-description']) ?  $this->noArabic($request['meta-description']) : '';
         $page->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
+
         if ($request['draft']) {
             $page->state = $page->previous_state;
             $page->state = 0;
@@ -85,12 +103,18 @@ class PageController extends Controller
         return redirect(route('Page > Edit', $id));
     }
 
-    public function DeletePermanently($id)
+    public function DeleteTemporary($id)
     {
         $page = Page::find($id);
         $page->previous_state = $page->state;
         $page->state=-1;
         $page->save();
+        return back();
+    }
+
+    public function DeletePermanently($id)
+    {
+        $page = Page::where('id',$id)->delete($id);
         return back();
     }
 

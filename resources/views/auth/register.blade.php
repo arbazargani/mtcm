@@ -1,11 +1,16 @@
 @extends('public.template')
 
+@section('meta')
+    <title>ثبت نام {{ "{$settings['title_delimiter']->value} {$settings['website_name']->value}" }}</title>
+    <meta name="description" content="ثبت نام در سیستم">
+    <meta name="robots" content="noindex, follow">
+@endsection
+
 @section('content')
-<div class="uk-container uk-align-center uk-width-1-3@m uk-width-1-2@s uk-padding-remove uk-first-column" style="max-width: 1120px;">
+<div class="uk-container uk-align-center uk-width-1-2@m uk-padding-remove uk-first-column" style="max-width: 1120px;">
     <div class="uk-card uk-card-default uk-box-shadow-small">
         <div class="uk-card-header" style="padding: 15px 30px 17px;">
-            <h2 class="uk-margin-remove uk-visible@s">ورود به سامانه</h2>
-            <h3 class="uk-margin-remove uk-hidden@s">ورود به سامانه</h3>
+            <h1 class="uk-margin-remove uk-text-lead uk-text-center">ثبت‌نام در سامانه</h1>
         </div>
         <div class="uk-card-body uk-padding-xsmall">
             @if($errors->any())
@@ -48,6 +53,9 @@
                     <button class="uk-button uk-button-primary uk-width-1-1" style="padding: 0px 8px;" name="LoginFromWeb">ثبت‌نام</button>
                 </div>
             </form>
+        </div>
+        <div class="uk-card-footer uk-text-center">
+            <a class="uk-text-meta uk-link-reset" style="padding: 0px 8px;" href="{{ route('login') }}">ورود</a>
         </div>
     </div>
 </div>
