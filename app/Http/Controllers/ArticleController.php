@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use function Composer\Autoload\includeFile;
@@ -145,15 +146,37 @@ class ArticleController extends Controller
         return view('admin.article.manage', compact(['articles', 'categories', 'tags', 'users']));
     }
 
-    public function Show($slug)
+    public function Show($slug, Request $request)
     {
-        $article = Article::where('slug', '=', $slug)->get();
+//        $article = Article::where('slug', '=', $slug)->get();
+
+        $article = Article::with('comment')->where('slug', '=', $slug)->get();
+
         if (!count($article) || ($article[0]->state !== 1)) {
             return abort('404', 'Not Found.');
         } else {
             Article::where('slug', '=', $slug)->increment('views');
-            $comments = $article[0]->comment;
-            //$comments = $this->ObjectToArray($comments, ['id', 'content', 'article_id', 'user_id', 'name', 'family', 'email', 'website', 'created_at', 'updated_at']);
+
+            $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+            // Create a new Laravel collection from the array data
+            // $itemCollection = collect($items);
+            $itemCollection = collect($article[0]->comment->where('approved', 1)->reverse());
+
+            // Define how many items we want to be visible in each page
+            $perPage = 15;
+
+            // Slice the collection to get the items to display in current page
+            $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
+
+            // Create our paginator and pass it to the view
+            $paginatedItems = new LengthAwarePaginator($currentPageItems, count($itemCollection), $perPage);
+
+            // set url path for generted links
+            $paginatedItems->setPath($request->url());
+
+            $comments = $paginatedItems;
+
             return view('public.article.single', compact(['article', 'comments']));
         }
     }

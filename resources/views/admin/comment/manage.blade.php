@@ -78,6 +78,7 @@
                             <p>دیدگاهی در سیستم ثبت نشده است.</p>
                         </div>
                     @endif
+                    {{ $comments->links("pagination::uikit-dark") }}
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <div class="uk-background-secondary uk-light uk-padding uk-padding-remove-bottom uk-margin-medium-top">
     <!-- sockets holder -->
-    <div class="uk-child-width-1-4@m uk-margin" uk-grid>
+    <div class="uk-child-width-1-4@m uk-margin uk-background-secondary" uk-grid>
 
         <!-- socket -->
         <div class="uk-container">
@@ -63,11 +63,30 @@
 
     </div>
     <!-- sockets holder -->
-    <div class="uk-text-center" style="padding: 10px; border-top: 1px solid #4e4e4e;">
-            <img src="{{ asset('assets/image/logo.png') }}" style="width: 24px; height: 24px; vertical-align: middle;" alt="Alireza Bazargani">
-            <span style="font-size: 11px!important;">طراحی توسط</span>
+
+    <!-- sockets holder -->
+    <div class="uk-background-secondary uk-padding-small" style="padding: 10px; border-top: 1px solid #4e4e4e;" uk-grid>
+
+{{--        <div class="uk-width-1-2">--}}
+{{--            <img src="{{ asset('assets/image/logo.png') }}" style="width: 24px; height: 24px; vertical-align: middle;" alt="Alireza Bazargani">--}}
+{{--            <span style="font-size: 11px!important;">طراحی توسط</span>--}}
+{{--            <a class="uk-link-reset uk-text-primary" href="{{ route('Home') }}" target="_blank" rel="follow">--}}
+{{--                <span style="font-size: 11px!important;">علیرضا بازرگانی</span>--}}
+{{--            </a>--}}
+{{--        </div>--}}
+        <div class="uk-width-1-2">
+            <img src="{{ asset('assets/image/mamooth-cms.png') }}" style="width: 24px; height: 24px; background: white; padding: 2px; border-radius: 3px; vertical-align: middle;" alt="MAMOOT CMS">
             <a class="uk-link-reset uk-text-primary" href="{{ route('Home') }}" target="_blank" rel="follow">
-                <span style="font-size: 11px!important;">علیرضا بازرگانی</span>
+                <span style="font-size: 11px!important;">سیستم مدیریت محتوای 'ماموت'</span>
             </a>
+        </div>
+        <div class="uk-width-1-2">
+            <a class="uk-float-left" href="{{ route('Rss') }}" target="_blank" class="uk-icon-link" uk-icon="rss"></a>
+            <span class="uk-float-left"> &nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <a class="uk-float-left" href="" target="_blank" class="uk-icon-link" uk-icon="twitter"></a>
+        </div>
+
     </div>
+    <!-- sockets holder -->
+
 </div>

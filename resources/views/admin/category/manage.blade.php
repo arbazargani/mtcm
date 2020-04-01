@@ -71,7 +71,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $categories->links() }}
+                        {{ $categories->links('pagination::uikit-dark') }}
                     @else
                         <div class="uk-alert-warning" uk-alert>
                             <a class="uk-alert-close" style="color: black" uk-close></a>

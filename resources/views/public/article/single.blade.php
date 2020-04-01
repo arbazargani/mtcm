@@ -180,6 +180,5 @@
         @include('public.article.comments')
     @endif
     </comments>
-
 </article>
 @endsection

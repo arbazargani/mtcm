@@ -71,12 +71,12 @@ Route::prefix('admin')->middleware('auth', 'HasAdminAccess', 'CheckPageState')->
     Route::get('tag', 'TagController@Manage')->name('Tag > Manage');
     Route::post('tag/new/submit', 'TagController@Submit')->name('Tag > Submit');
     Route::post('tag/delete/{id}', 'TagController@Delete')->name('Tag > Delete');
-    
+
 
     Route::get('category', 'CategoryController@Manage')->name('Category > Manage');
     Route::post('category/new/submit', 'CategoryController@Submit')->name('Category > Submit');
     Route::post('category/delete/{id}', 'CategoryController@Delete')->name('Category > Delete');
-    
+
 
     Route::get('comment/manage/', 'CommentController@Manage')->name('Comment > Manage');
     Route::post('comment/approve/{id}/', 'CommentController@Approve')->name('Comment > Approve');
@@ -91,3 +91,8 @@ Route::get('/category-sitemap.xml', 'SitemapController@Category')->name('Sitemap
 Route::get('/tag-sitemap.xml', 'SitemapController@Tag')->name('Sitemap > Tags');
 
 Route::get('/rss', 'FeedController@Index')->name('Rss');
+
+
+Route::get('/a/101', function () {
+    return abort('404', 'errors.mine');
+});

@@ -58,12 +58,12 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $users->appends(request()->query())->render("pagination::uikit") }}
+                {{ $users->appends(request()->query())->render("pagination::uikit-dark") }}
 
             @else
                 <div class="uk-alert-warning" uk-alert>
                     <a class="uk-alert-close" uk-close></a>
-                    <p>مقاله‌ای در سیستم موجود نیست.</p>
+                    <p>کاربری در سیستم موجود نیست.</p>
                 </div>
             @endif
         </div>

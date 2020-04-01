@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function Manage()
     {
-        $categories = Category::paginate(20);
+        $categories = Category::paginate(3);
         return view('admin.category.manage', compact('categories'));
     }
 
@@ -72,7 +72,7 @@ class CategoryController extends Controller
         $paginatedItems->setPath($request->url());
 
         $PaginatedCategories = $paginatedItems;
-  
+
         return view('public.category.archive', compact('category', 'PaginatedCategories'));
     }
 }

@@ -154,7 +154,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $articles->render("pagination::uikit") }}
+                {{ $articles->render("pagination::uikit-dark") }}
 
             @else
                 <div class="uk-alert-warning" uk-alert>

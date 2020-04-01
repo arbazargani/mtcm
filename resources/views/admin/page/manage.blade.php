@@ -111,7 +111,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $pages->appends(request()->query())->render("pagination::uikit") }}
+                {{ $pages->appends(request()->query())->render("pagination::uikit-dark") }}
             @else
                 <div class="uk-alert-warning" uk-alert>
                     <a class="uk-alert-close" style="color: black" uk-close></a>

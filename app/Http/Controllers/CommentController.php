@@ -8,41 +8,43 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function Submit (Request $request, $id) {
-      $comment = new Comment;
-      $comment->content = $request['content'];
-      $comment->article_id = $id;
-      if (Auth::check()) {
-        $request->validate([
-            'content' => 'required|min:2',
-        ]);
-        $comment->user_id = Auth::user()->id;
-        $comment->name = Auth::user()->name;
-        $comment->family = Auth::user()->family;
-        $comment->email = Auth::user()->email;
-      } else {
-        $request->validate([
-            'name' => 'required|min:1|max:20',
-            'family' => 'min:1|max:20',
-            'email' => 'required|min:1',
-//            'website' => 'min:4',
-            'content' => 'required|min:2'
-        ]);
-        $comment->name = $request['name'];
-        $comment->family = $request['family'];
-        $comment->email = $request['email'];
-      }
-      if (isset($request['website'])) {
-        $comment->website = $request['website'];
-      }
-      $comment->approved = 0;
-      $comment->save();
-      return back();
+    public function Submit(Request $request, $id)
+    {
+        $comment = new Comment;
+        $comment->content = $request['content'];
+        $comment->article_id = $id;
+        $comment->approved = 0;
+        if (Auth::check()) {
+            $request->validate([
+                'content' => 'required|min:2',
+            ]);
+            $comment->user_id = Auth::user()->id;
+            $comment->name = Auth::user()->name;
+            $comment->family = Auth::user()->family;
+            $comment->email = Auth::user()->email;
+            $comment->approved = 1;
+        } else {
+            $request->validate([
+                'name' => 'min:3',
+                'family' => 'min:3',
+                'email' => 'required|min:5',
+                'website' => 'min:4',
+                'content' => 'required|min:5'
+            ]);
+            $comment->name = $request['name'];
+            $comment->family = $request['family'];
+            $comment->email = $request['email'];
+        }
+        if (isset($request['website'])) {
+            $comment->website = $request['website'];
+        }
+        $comment->save();
+        return back();
     }
 
     public function Manage()
     {
-        $comments = Comment::latest()->paginate(10);
+        $comments = Comment::latest()->paginate(15);
         return view('admin.comment.manage', compact('comments'));
     }
 
