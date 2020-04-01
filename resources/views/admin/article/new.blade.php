@@ -92,7 +92,36 @@
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
+
+                        <hr class="uk-divider-small">
+
+                        <ul uk-accordion>
+                            <li class="uk-close">
+                                <a class="uk-accordion-title" href="#">افزودن دسته</a>
+                                <div class="uk-accordion-content">
+                                    <p style="display: none" id="cat_area"></p>
+                                    <p id="cat_preview"></p>
+
+                                    <input class="uk-input uk-margin" type="text" id="user_category">
+                                    <a class="uk-button uk-button-link uk-float-left" onclick="add_cat()"><span uk-icon="arrow-right"></span> افزودن دسته</a>
+
+                                    <script>
+                                        function add_cat() {
+                                            var name = document.getElementById('user_category').value;
+                                            document.getElementById('cat_area').innerHTML += '<input class="uk-invisible uk-meta" type="text" name="new_categories[]" id="new_category_'+ name +'" value="'+ name +'">';
+                                            document.getElementById('cat_preview').innerHTML +=  '<a id="cat_preview_'+ name +'" style="color: #9fb8cd" onclick="' + 'remove_cat(\'new_category_' + name + '\'), ' + 'remove_cat(\'cat_preview_' + name + '\')"><span uk-icon="close"></span>' + name + ' </a>';
+                                            document.getElementById('user_category').value = '';
+                                        }
+                                        function remove_cat(id) {
+                                            var elem = document.getElementById(id);
+                                            return elem.parentNode.removeChild(elem);
+                                        }
+                                    </script>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+
                     <hr class="uk-divider-icon">
                     <div class="uk-container">
                         <h4 class="uk-h4 tm-heading-fragment">برچسب‌ها</h4>
@@ -101,6 +130,34 @@
                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
                         </select>
+
+                        <hr class="uk-divider-small">
+
+                        <ul uk-accordion>
+                            <li class="uk-close">
+                                <a class="uk-accordion-title" href="#">افزودن برچسب</a>
+                                <div class="uk-accordion-content">
+                                    <p style="display: none" id="tag_area"></p>
+                                    <p id="tag_preview"></p>
+
+                                    <input class="uk-input uk-margin" type="text" id="user_tag">
+                                    <a class="uk-button uk-button-link uk-float-left" onclick="add_tag()"><span uk-icon="arrow-right"></span> افزودن برچسب</a>
+
+                                    <script>
+                                        function add_tag() {
+                                            var name = document.getElementById('user_tag').value;
+                                            document.getElementById('tag_area').innerHTML += '<input class="uk-invisible uk-meta" type="text" name="new_tags[]" id="new_tag_'+ name +'" value="'+ name +'">';
+                                            document.getElementById('tag_preview').innerHTML +=  '<a id="tag_preview_'+ name +'" style="color: #9fb8cd" onclick="' + 'remove_tag(\'new_tag_' + name + '\'), ' + 'remove_tag(\'tag_preview_' + name + '\')"><span uk-icon="close"></span>' + name + ' </a>';
+                                            document.getElementById('user_tag').value = '';
+                                        }
+                                        function remove_tag(id) {
+                                            var elem = document.getElementById(id);
+                                            return elem.parentNode.removeChild(elem);
+                                        }
+                                    </script>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <hr class="uk-divider-icon">
                     <div class="uk-container">

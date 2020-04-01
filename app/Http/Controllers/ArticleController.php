@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -39,8 +40,35 @@ class ArticleController extends Controller
         $request->validate([
             'title' => 'required|min:1|max:400',
             'content' => 'required|min:1',
-            'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
+        if($request->has('new_categories') && count($request['new_categories']) > 0) {
+            $user_categories = [];
+            foreach ($request['new_categories'] as $value) {
+                if (!is_null($value)) {
+                    $category = new Category();
+                    $category->name = $value;
+                    $category->slug = SlugService::createSlug(Category::class, 'slug', $value);
+                    $category->save();
+                    $user_categories[] = $category->id;
+                }
+            }
+        }
+
+        if($request->has('new_tags') && count($request['new_tags']) > 0) {
+            $user_tags = [];
+            foreach ($request['new_tags'] as $value) {
+                if (!is_null($value)) {
+                    $tag = new Tag();
+                    $tag->name = $value;
+                    $tag->slug = SlugService::createSlug(Category::class, 'slug', $value);
+                    $tag->save();
+                    $user_tags[] = $tag->id;
+                }
+            }
+        }
+
 
         $fileName = 'ghost.png';
         if ($request->hasFile('cover')) {
@@ -59,13 +87,13 @@ class ArticleController extends Controller
         $article = new Article();
         $article->title = $this->noArabic($request['title']);
         $article->content = $this->NoArabic($request['content']);
-        
+
         $article->meta_description = isset($request['meta-description']) ? $this->noArabic($request['meta-description']) : '';
         $article->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
 
         $article->cover = $fileName;
         $article->user_id = Auth::id();
-        
+
         if ($request['publish']) {
             $article->state = 1;
             $article->previous_state = 1;
@@ -75,12 +103,22 @@ class ArticleController extends Controller
             $article->previous_state = 0;
         }
         $article->save();
+
         $article->category()->attach($request['categories']);
+
+        if (isset($user_categories) && count($user_categories) > 0) {
+            $article->category()->attach($user_categories);
+        }
+
         $article->tag()->attach($request['tags']);
+
+        if (isset($user_tags) && count($user_tags) > 0) {
+            $article->tag()->attach($user_tags);
+        }
 
         $log = $article->created_at . " - article created. | id:" . $article->id . " | state:";
         $log .= $article->state ? 'published' : 'draft';
-        
+
         Log::info($log);
 
         return redirect(route('Article > Edit', $article->id));
@@ -136,6 +174,32 @@ class ArticleController extends Controller
             'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        if($request->has('new_categories') && count($request['new_categories']) > 0) {
+            $user_categories = [];
+            foreach ($request['new_categories'] as $value) {
+                if (!is_null($value)) {
+                    $category = new Category();
+                    $category->name = $value;
+                    $category->slug = SlugService::createSlug(Category::class, 'slug', $value);
+                    $category->save();
+                    $user_categories[] = $category->id;
+                }
+            }
+        }
+
+        if($request->has('new_tags') && count($request['new_tags']) > 0) {
+            $user_tags = [];
+            foreach ($request['new_tags'] as $value) {
+                if (!is_null($value)) {
+                    $tag = new Tag();
+                    $tag->name = $value;
+                    $tag->slug = SlugService::createSlug(Category::class, 'slug', $value);
+                    $tag->save();
+                    $user_tags[] = $tag->id;
+                }
+            }
+        }
+
         if ($request->hasFile('cover')) {
             // Get filename.extention
             $image = $request->file('cover')->getClientOriginalName();
@@ -156,7 +220,7 @@ class ArticleController extends Controller
 
         $article->meta_description = isset($request['meta-description']) ? $this->noArabic($request['meta-description']) : '';
         $article->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
-        
+
         if ($request->hasFile('cover')) {
             $article->cover = $fileName;
         }
@@ -169,8 +233,19 @@ class ArticleController extends Controller
             $article->state = 1;
         }
         $article->save();
+
         $article->category()->sync($request['categories']);
+
+        if (isset($user_categories) && count($user_categories) > 0) {
+            $article->category()->attach($user_categories);
+        }
+
         $article->tag()->sync($request['tags']);
+
+        if (isset($user_tags) && count($user_tags) > 0) {
+            $article->tag()->attach($user_tags);
+        }
+
         return redirect(route('Article > Edit', $id));
     }
 
