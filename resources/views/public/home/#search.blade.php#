@@ -1,7 +1,8 @@
 @extends('public.template')
 
 @section('meta')
-<title>{{ 'نتایج جستجو:‌ ' . $_REQUEST['query'] . " " . $settings['title_delimiter']->value . " " . $settings['website_name']->value }}</title>
+<title>{{ 'نتایج جستجو:‌ ' . $_REQUEST['query'] . " " .$setting[
+title_delimiter']->value . " " . $settings['website_name']->value }}</title>
     <meta name="description" content="{{ 'نتایج جستجو:‌ ' . $_REQUEST['query'] }}">
     <meta name="robots" content="index, follow">
 @endsection
