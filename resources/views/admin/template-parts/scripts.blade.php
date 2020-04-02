@@ -9,7 +9,21 @@
         plugins : 'visualblocks wordcount ltr rtl directionality advlist autolink link image lists charmap print preview table tabledelete | tableprops tablerowprops tablecellprops | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol code',
         toolbar: 'visualblocks wordcount ltr rtl directionality advlist autolink link image lists charmap print preview table tabledelete | tableprops tablerowprops tablecellprops | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol code',
         directionality : "rtl",
-        height: 500
+        height: 500,
+        file_picker_callback (callback, value, meta) {
+            let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
+            let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight
+
+            tinymce.activeEditor.windowManager.openUrl({
+                url : '/file-manager/tinymce5',
+                title : 'FileManager',
+                width : x * 0.8,
+                height : y * 0.8,
+                onMessage: (api, message) => {
+                    callback(message.content, { text: message.text })
+                }
+            })
+        }
     });
 </script>
 

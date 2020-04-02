@@ -2,7 +2,8 @@
 /public/hot
 storage
 /storage/*.key
-/vendor
+/vendor/*
+!/vendor/alexusmai
 /.idea
 .idea
 .env

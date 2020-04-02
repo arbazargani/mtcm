@@ -10,11 +10,21 @@
     <meta name="author" content="Mamooth CMS" />
     <meta name="robots" content="noindex, nofollow">
     @yield('meta')
+
+    {{-- UIkit --}}
     <link rel="stylesheet" href="{{ asset('assets/css/uikit-rtl.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-
     <script src="{{ asset('assets/js/uikit.min.js') }}"></script>
     <script src="{{ asset('assets/js/uikit-icons.min.js') }}"></script>
+
+    {{-- Bootstrap --}}
+    {{--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">--}}
+    {{--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">--}}
+    {{--    <link rel="stylesheet" href="{{ asset('assets/css/file-manager.css') }}">--}}
+    {{--    <script src="{{ asset('assets/js/file-manager.js') }}"></script>--}}
+
+
+
 
     <style>
         *:not(i) {

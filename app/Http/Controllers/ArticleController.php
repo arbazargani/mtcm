@@ -29,6 +29,13 @@ class ArticleController extends Controller
         return $output;
     }
 
+    public function NoRelatives($input) {
+        $relative = 'src="../../';
+        $absolute = 'src="'.ENV('APP_URL')."/";
+        $output = str_replace($relative, $absolute , $input);
+        return $output;
+    }
+
     public function New()
     {
         $categories = Category::all();
@@ -86,8 +93,9 @@ class ArticleController extends Controller
         }
 
         $article = new Article();
-        $article->title = $this->noArabic($request['title']);
+        $article->title = $this->NoArabic($request['title']);
         $article->content = $this->NoArabic($request['content']);
+        $article->content = $this->NoRelatives($request['content']);
 
         $article->meta_description = isset($request['meta-description']) ? $this->noArabic($request['meta-description']) : '';
         $article->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
@@ -238,10 +246,11 @@ class ArticleController extends Controller
 
         $article = Article::find($id);
 
-        $article->title = $this->noArabic($request['title']);
-        $article->content = $this->noArabic($request['content']);
+        $article->title = $this->NoArabic($request['title']);
+        $article->content = $this->NoArabic($request['content']);
+        $article->content = $this->noRelatives($request['content']);
 
-        $article->meta_description = isset($request['meta-description']) ? $this->noArabic($request['meta-description']) : '';
+        $article->meta_description = isset($request['meta-description']) ? $this->NoArabic($request['meta-description']) : '';
         $article->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
 
         if ($request->hasFile('cover')) {

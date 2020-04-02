@@ -19,6 +19,13 @@ class PageController extends Controller
         return $output;
     }
 
+    public function NoRelatives($input) {
+        $relative = 'src="../../';
+        $absolute = 'src="'.ENV('APP_URL')."/";
+        $output = str_replace($relative, $absolute , $input);
+        return $output;
+    }
+
     public function Submit(Request $request) {
         $request->validate([
             'title' => 'required|min:1|max:400',
@@ -27,10 +34,11 @@ class PageController extends Controller
 
         $page = new Page();
 
-        $page->title =  $this->noArabic($request['title']);
-        $page->content =  $this->noArabic($request['content']);
+        $page->title =  $this->NoArabic($request['title']);
+        $page->content =  $this->NoArabic($request['content']);
+        $page->content =  $this->noRelative($request['content']);
 
-        $page->meta_description = isset($request['meta-description']) ?  $this->noArabic($request['meta-description']) : '';
+        $page->meta_description = isset($request['meta-description']) ?  $this->NoArabic($request['meta-description']) : '';
         $page->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
 
         $page->user_id = Auth::id();
@@ -85,10 +93,11 @@ class PageController extends Controller
 
         $page = Page::find($id);
 
-        $page->title =  $this->noArabic($request['title']);
-        $page->content =  $this->noArabic($request['content']);
+        $page->title =  $this->NoArabic($request['title']);
+        $page->content =  $this->NoArabic($request['content']);
+        $page->content =  $this->NoRelatives($request['content']);
 
-        $page->meta_description = isset($request['meta-description']) ?  $this->noArabic($request['meta-description']) : '';
+        $page->meta_description = isset($request['meta-description']) ?  $this->NoRelatives($request['meta-description']) : '';
         $page->meta_robots = isset($request['meta-robots']) ? $request['meta-robots'] : 'index, follow';
 
         if ($request['draft']) {
