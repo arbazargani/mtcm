@@ -91,8 +91,3 @@ Route::get('/category-sitemap.xml', 'SitemapController@Category')->name('Sitemap
 Route::get('/tag-sitemap.xml', 'SitemapController@Tag')->name('Sitemap > Tags');
 
 Route::get('/rss', 'FeedController@Index')->name('Rss');
-
-
-Route::get('/a/101', function () {
-    return abort('404', 'errors.mine');
-});

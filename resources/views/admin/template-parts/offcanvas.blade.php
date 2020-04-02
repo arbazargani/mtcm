@@ -1,17 +1,3 @@
-<div class="uk-background-muted uk-padding-small" uk-sticky="animation: uk-animation-slide-top">
-    
-    <a class="uk-icon-button" uk-icon="menu" uk-toggle="target: #offcanvas-nav"></a>
-    <div class="uk-float-left" style="direction: ltr;">
-    <a class="uk-link-reset" href="{{ route('Home') }}" target="_blank"><span class="uk-icon-button" uk-icon="icon: home"></span></a>
-    <a class="uk-link-reset" href="{{ route('Profile') }}" target="_self"><span class="uk-icon-button" uk-icon="icon: user"></span> <span class="uk-text-meta">{{ Auth::user()->username }}</span></a>
-    <a class="uk-link-reset" onClick='document.getElementById("logout").submit();'><span class="uk-icon-button" uk-icon="icon: sign-out"></span>
-    <form action="{{ route('logout') }}" method="post" class="uk-hidden" id="logout">
-        @csrf
-        <button type="submit"></button>
-    </form>
-    </div>
-</div>
-
 <div id="offcanvas-nav" uk-offcanvas="overlay: true; mode: reval">
     <div class="uk-offcanvas-bar" style="width: 250px">
 

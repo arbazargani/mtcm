@@ -3,13 +3,6 @@
             <h5 class="uk-light"><a class="uk-link-reset" href="{{ route('Admin') }}"><span class="uk-icon-button" uk-icon="icon: home"></span> داشبورد</a></h5>
             <ul class="uk-nav-sub">
                 <li class=""><a href="{{ route('Home') }}" target="_blank">نمایش وبسایت</a></li>
-                <br>
-                <li class="">
-                    <form action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <button class="uk-button uk-button-danger uk-button" type="submit">خروج</button>
-                    </form>
-                </li>
             </ul>
     </ul>
     <hr>

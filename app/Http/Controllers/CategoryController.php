@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function Manage()
     {
-        $categories = Category::paginate(3);
+        $categories = Category::paginate(15);
         return view('admin.category.manage', compact('categories'));
     }
 
@@ -60,7 +60,7 @@ class CategoryController extends Controller
         $itemCollection = collect($category[0]->article->where('state', 1)->reverse());
 
         // Define how many items we want to be visible in each page
-        $perPage = 10;
+        $perPage = 15;
 
         // Slice the collection to get the items to display in current page
         $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();

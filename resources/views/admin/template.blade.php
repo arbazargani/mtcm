@@ -34,6 +34,7 @@
     </style>
 </head>
 <body>
+@include('admin.template-parts.topbar')
 <div class="uk-background-secondary" uk-grid>
     <div class="uk-visible@m" style="border: 1px solid lightgray;">
         @include('admin.template-parts.sidebar')

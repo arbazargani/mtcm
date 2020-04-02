@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <!-- populars -->
 
@@ -80,7 +80,7 @@
             </table>
             @else
                 <div class="uk-alert">
-                    محتوایی برای نمایش موجود نیستد.
+                    محتوایی برای نمایش موجود <نیست></نیست>.
                 </div>
             @endif
         </div>
@@ -178,7 +178,7 @@
                         ['Other',  7]
                         ]);
 
-                        var options = {title: ''}; 
+                        var options = {title: ''};
 
                         // Instantiate and draw the chart.
                         var chart = new google.visualization.ColumnChart(document.getElementById('col_chart'));
@@ -190,11 +190,11 @@
                 </div>
             </div>
             <!-- browser -->
-           
+
         </div>
     </div>
     <!-- analytics -->
-    
+
     <!-- admin alerts, logs -->
     <div class="uk-section uk-section-secondary uk-light uk-background-secondary uk-padding uk-margin-large-bottom">
         <h3><span uk-icon="bell"></span> اعلانات</h3>
@@ -248,6 +248,6 @@
     </div>
     <!-- admin alerts, logs -->
 
-    
+
 </div>
 @endsection
