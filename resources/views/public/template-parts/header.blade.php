@@ -48,7 +48,7 @@
             <li class="uk-active uk-hidden@m"><a href="" uk-icon="menu" uk-toggle="target: #responsive-menu"></a></li>
             @if(Auth::check())
             <div class="uk-navbar-item uk-visible@m">
-                <a class="uk-button uk-button-small uk-background-secondary" href="{{ route('Admin') }}" >پنل مدیریت</a>
+                <a class="uk-button uk-button-primary" href="{{ route('Admin') }}" >پنل مدیریت</a>
             </div>
             <div class="uk-navbar-item uk-visible@m">
             <form action="{{ route('logout') }}" method="post">

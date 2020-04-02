@@ -22,7 +22,7 @@
             <div class="uk-margin-medium-top uk-text-center" uk->
                 <h1>404 | یافت نشد.</h1>
                 <hr>
-                <a href="" class="uk-button-text uk-link-reset"><span uk-icon="arrow-left"></span> بازگشت</a>
+                <a href="{{ route('Home') }}" class="uk-button-text uk-link-reset"><span uk-icon="arrow-left"></span> بازگشت</a>
             </div>
         </content>
 

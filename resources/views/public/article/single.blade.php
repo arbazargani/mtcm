@@ -74,10 +74,10 @@
     <div class="uk-visible@m">
         <div>
 
-            <div class="uk-inline">
+            <div class="uk-inline uk-width-1-1">
                 <img class="uk-margin-remove uk-align-center uk-border-rounded"
                      src="/storage/uploads/articles/images/{{ $article[0]->cover }}"
-                     alt="{{ $article['0']->meta_title }}" uk-img>
+                     alt="{{ $article['0']->meta_title }}" style="min-width: 100%;" uk-img>
                 <div class="uk-position-top-left uk-label uk-margin uk-margin-left">
                     بازدید: {{ $article[0]->views }}</div>
                 <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-border-rounded">

@@ -7,25 +7,14 @@
     <meta name="Development" content="Alireza Bazargani." />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Tiny-CMS" />
-    <meta name="author" content="" />
+    <meta name="author" content="Mamooth CMS" />
     <meta name="robots" content="noindex, nofollow">
     @yield('meta')
     <link rel="stylesheet" href="{{ asset('assets/css/uikit-rtl.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+
     <script src="{{ asset('assets/js/uikit.min.js') }}"></script>
     <script src="{{ asset('assets/js/uikit-icons.min.js') }}"></script>
-    <script src="https://cdn.tiny.cloud/1/b3zbxrwztsjum71vs51caf64xuyitiqpxu3irnfb1i7qgusn/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector:'#content',
-            plugins : 'visualblocks wordcount ltr rtl directionality advlist autolink link image lists charmap print preview table tabledelete | tableprops tablerowprops tablecellprops | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol code',
-            toolbar: 'visualblocks wordcount ltr rtl directionality advlist autolink link image lists charmap print preview table tabledelete | tableprops tablerowprops tablecellprops | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol code',
-            directionality : "rtl",
-            height: 500
-        });
-    </script>
-    <!-- google charts -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <style>
         *:not(i) {
