@@ -23,7 +23,7 @@
                     <form class="uk-grid-small uk-position-relative uk-grid" uk-grid="" action="{{ route('Tag > Submit') }}" method="POST">
                         @csrf
                         <div class="uk-inline uk-width-1-1 uk-first-column">
-                            <input type="text" name="name" id="name" placeholder="عنوان" class="uk-input form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required style="padding-left: 40px;" autofocus>
+                            <input type="text" name="name" id="name" placeholder="عنوان" class="uk-input form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required style="padding-left: 40px;">
                         </div>
                         <div class="uk-inline uk-width-1-1 uk-first-column">
                             <input type="text" name="slug" id="slug" placeholder="نامک" class="uk-input form-control @error('slug') is-invalid @enderror" value="{{ old('slug') }}" style="padding-left: 40px;">

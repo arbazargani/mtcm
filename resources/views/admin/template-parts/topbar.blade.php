@@ -1,4 +1,4 @@
-<div class="uk-container uk-background-muted uk-width-1-1" uk-sticky="animation: uk-animation-slide-top">
+<div class="uk-container uk-background-muted uk-width-1-1" uk-sticky>
 
     <div class="uk-text-left" style="direction: ltr;">
         <a class="uk-icon-button uk-hidden@m" uk-icon="menu" uk-toggle="target: #offcanvas-nav"></a>
