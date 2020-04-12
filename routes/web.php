@@ -50,7 +50,6 @@ Route::prefix('admin')->middleware('auth', 'HasAdminAccess', 'CheckPageState')->
 
     Route::get('article/new', 'ArticleController@New')->name('Article > New');
     Route::post('article/new/submit', 'ArticleController@Submit')->name('Article > Submit');
-
     Route::get('article/manage/', 'ArticleController@Manage')->name('Article > Manage');
     Route::get('article/edit/{id}', 'ArticleController@Edit')->name('Article > Edit');
     Route::post('article/edit/{id}/update', 'ArticleController@Update')->name('Article > Update');
@@ -60,7 +59,6 @@ Route::prefix('admin')->middleware('auth', 'HasAdminAccess', 'CheckPageState')->
 
     Route::get('page/new', 'PageController@New')->name('Page > New');
     Route::post('page/new/submit', 'PageController@Submit')->name('Page > Submit');
-
     Route::get('page/manage/', 'PageController@Manage')->name('Page > Manage');
     Route::get('page/edit/{id}', 'PageController@Edit')->name('Page > Edit');
     Route::post('page/edit/{id}/update', 'PageController@Update')->name('Page > Update');
@@ -82,6 +80,15 @@ Route::prefix('admin')->middleware('auth', 'HasAdminAccess', 'CheckPageState')->
     Route::post('comment/approve/{id}/', 'CommentController@Approve')->name('Comment > Approve');
     Route::post('comment/unapprove/{id}/', 'CommentController@Unapprove')->name('Comment > Unapprove');
     Route::post('comment/delete/{id}', 'CommentController@Delete')->name('Comment > Delete');
+
+
+    Route::get('advertise/new', 'AdvertiseController@New')->name('Advertise > New');
+    Route::post('advertise/new/submit', 'AdvertiseController@Submit')->name('Advertise > Submit');
+    Route::get('advertise/manage/', 'AdvertiseController@Manage')->name('Advertise > Manage');
+    Route::get('advertise/edit/{id}', 'AdvertiseController@Edit')->name('Advertise > Edit');
+    Route::post('advertise/edit/{id}/update', 'AdvertiseController@Update')->name('Advertise > Update');
+    Route::post('advertise/delete/{id}', 'AdvertiseController@Delete')->name('Advertise > Delete');
+
 });
 
 Route::get('/sitemap_index.xml', 'SitemapController@Index');

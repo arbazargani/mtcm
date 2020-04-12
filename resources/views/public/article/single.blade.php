@@ -25,6 +25,24 @@
 </ul>
 
 <article class="article uk-background-default uk-border-rounded">
+
+    <!-- Advertise socket - section 001 -->
+    <div class="uk-margin">
+        @if(count($advertises) > 0)
+            @foreach($advertises->where('socket', 'article-001')->all() as $advertise)
+                @if($advertise->just_admin && !Auth::check())
+                    @break
+                @else
+                    <div>
+                        {!! $advertise->content !!}
+                    </div>
+                    <hr>
+                @endif
+            @endforeach
+        @endif
+    </div>
+    <!-- Advertise socket - section 001 -->
+
     <!-- article cover and meta box for small-screens -->
     <div class="uk-hidden@m">
         @if($article[0]->cover)

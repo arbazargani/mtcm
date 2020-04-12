@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Advertise;
 use Illuminate\Support\ServiceProvider;
 use Hekmatinasser\Verta\Verta;
 
@@ -32,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         $latestArticles = Article::where('state', 1)->latest()->limit(5)->get();
         $popularArticles = Article::where('state', 1)->orderBy('views', 'desc')->limit(3)->get();
         $notPopularArticles = Article::where('state', 1)->orderBy('views', 'asc')->limit(10)->get();
+        $advertises = Advertise::where('state', 1)->get();
         $settings['website_name'] = Setting::where('name', 'website_name')->first();
         $settings['title_delimiter'] = Setting::where('name', 'title_delimiter')->first();
 
@@ -40,7 +42,8 @@ class AppServiceProvider extends ServiceProvider
             'categories',
             'settings',
             'notPopularArticles',
-            'popularArticles'
+            'popularArticles',
+            'advertises'
         ] ) );
     }
 }

@@ -1,6 +1,6 @@
 <ul class="uk-flex-center" uk-tab uk-switcher>
-    <li class="uk-active"><a href="#">افزودن دیدگاه</a></li>
-    <li><a href="#">نمایش دیدگاه‌ها</a></li>
+    <li class="uk-active"><a href="#">نمایش دیدگاه‌ها</a></li>
+    <li><a href="#">افزودن دیدگاه</a></li>
 </ul>
 <ul class="uk-switcher">
     <li>
