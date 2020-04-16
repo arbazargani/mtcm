@@ -24,6 +24,7 @@ class CreateAdvertisesTable extends Migration
             $table->string('type');
             $table->integer('views')->default(0);
             $table->integer('state')->default(1);
+            $table->integer('mobile_only')->default(0);
             $table->integer('just_admin')->default(0);
             $table->timestamp('expires_at');
             $table->timestamps();

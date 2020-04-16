@@ -24,8 +24,6 @@
     {{--    <script src="{{ asset('assets/js/file-manager.js') }}"></script>--}}
 
 
-
-
     <style>
         *:not(i) {
             font-family: IRANSans !important;

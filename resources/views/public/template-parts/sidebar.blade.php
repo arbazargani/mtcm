@@ -24,7 +24,7 @@
                 @if($advertise->just_admin && !Auth::check())
                     @break
                 @else
-                    <div class="uk-card uk-card-hover uk-card-body">
+                    <div class="uk-card uk-card-hover uk-card-body @if($advertise->mobile_only) uk-hidden@s @endif">
                         {!! $advertise->content !!}
                     </div>
                 @endif
@@ -100,7 +100,7 @@
                 @if($advertise->just_admin && !Auth::check())
                     @break
                 @else
-                    <div class="uk-card uk-card-hover uk-card-body">
+                    <div class="uk-card uk-card-hover uk-card-body @if($advertise->mobile_only) uk-hidden@s @endif">
                         {!! $advertise->content !!}
                     </div>
                 @endif
@@ -136,7 +136,7 @@
                 @if($advertise->just_admin && !Auth::check())
                     @break
                 @else
-                    <div class="uk-card uk-card-hover uk-card-body">
+                    <div class="uk-card uk-card-hover uk-card-body @if($advertise->mobile_only) uk-hidden@s @endif">
                         {!! $advertise->content !!}
                     </div>
                 @endif
@@ -168,7 +168,7 @@
                 @if($advertise->just_admin && !Auth::check())
                     @break
                 @else
-                    <div class="uk-card uk-card-hover uk-card-body">
+                    <div class="uk-card uk-card-hover uk-card-body @if($advertise->mobile_only) uk-hidden@s @endif">
                         {!! $advertise->content !!}
                     </div>
                 @endif

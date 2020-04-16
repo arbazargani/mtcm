@@ -55,9 +55,9 @@
                                         <td>{{ $advertise->author }}</td>
                                         <td>{{ $advertise->socket }}</td>
                                         <td>{{ $advertise->views }}</td>
-                                        <td>@if($advertise->state) فعال @else غیرفعال @endif</td>
+                                        <td>@if($advertise->state) <span class="uk-text-success">فعال</span> @else <span class="uk-text-danger">غیرفعال</span> @endif</td>
                                         <td>@if($advertise->just_admin) <span class="uk-text-danger" uk-icon="close"></span> @else <span class="uk-text-success" uk-icon="check"></span> @endif</td>
-                                        <td>{{ $advertise->expires_at }}</td>
+                                            <td>@if($advertise->expires_at > date("Y-m-d H:i:s")) <span class="uk-text-success">{{ $advertise->expires_at }}</span> @else <span class="uk-text-danger">منقضی شده</span> @endif</td>
                                         <td>
                                           <a class="uk-button uk-button-primary" href="{{ route('Advertise > Edit', $advertise->id) }}" type="submit">ویرایش</a>
                                         </td>

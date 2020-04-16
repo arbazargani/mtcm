@@ -30,6 +30,15 @@
     <hr>
 
     <ul class="uk-nav uk-nav-default tm-nav">
+        <h5 class="uk-light"><span class="uk-icon-button"  uk-icon="forward"></span> تبلیغات</h5>
+        <ul class="uk-nav-sub">
+            <li class=""><a href="{{ route('Advertise > Manage') }}">مدیریت</a></li>
+            <li class=""><a href="{{ route('Advertise > New') }}">ایجاد</a></li>
+        </ul>
+    </ul>
+    <hr>
+
+    <ul class="uk-nav uk-nav-default tm-nav">
         <h5 class="uk-light"><span class="uk-icon-button"  uk-icon="settings"></span> تنظیمات</h5>
         <ul class="uk-nav-sub">
             <li class=""><a href="{{ route('Setting') }}">تنظیمات سیستم</a></li>

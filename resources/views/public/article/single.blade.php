@@ -11,7 +11,12 @@
 @endsection
 
 @section('content')
-<ul class="uk-breadcrumb uk-margin-medium-right">
+<ul class="uk-breadcrumb" style="
+                                                        text-overflow: ellipsis;    
+                                                        white-space: nowrap;
+                                                        overflow: hidden;
+                                                        width: 100%;
+                                                        ">
     <li><a href="{{ route('Home') }}">خانه</a></li>
     <li><a href="{{ route('Blog') }}">بلاگ</a></li>
     @if(count($article[0]->category->all()))
@@ -190,6 +195,23 @@
 
         </div>
     </metabox>
+
+    <!-- Advertise socket - section 003 -->
+    <div class="uk-margin">
+        @if(count($advertises) > 0)
+            @foreach($advertises->where('socket', 'article-003')->all() as $advertise)
+                @if($advertise->just_admin && !Auth::check())
+                    @break
+                @else
+                    <div>
+                        {!! $advertise->content !!}
+                    </div>
+                    <hr>
+                @endif
+            @endforeach
+        @endif
+    </div>
+    <!-- Advertise socket - section 003 -->
 
     </comment>
     @if( env('DISQUS_SYSTEM') )

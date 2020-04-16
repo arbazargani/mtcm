@@ -31,7 +31,7 @@
                 </div>
                 <div class="uk-width-1-3@m">
                     <label class="uk-form-label">انقضا</label>
-                    <input class="uk-input" type="text" name="expires_at" value="{{ $advertise->expires_at }}" required>
+                    <input class="uk-input datepicker" type="text" name="expires_at" value="{{ $advertise->expires_at }}" required>
                 </div>
                 <div class="uk-width-1-4@m uk-margin">
                     <label class="uk-form-label">جایگاه</label>
@@ -86,6 +86,10 @@
                     <button type="submit" class="uk-button uk-button-primary" name="button">ذخیره</button>
                 </div>
                 <div class="uk-width-1-2@m uk-margin">
+                    <input class="uk-checkbox" type="checkbox" name="mobile_only" id="mobile_only" value="1" @if($advertise->mobile_only) checked @endif>
+                    <label class="uk-form-label" for="mobile_only">فقط موبایل</label>
+                    <br>
+                    <br>
                     <label class="uk-form-label">پیش‌نمایش</label>
                     <br>
                     <br>

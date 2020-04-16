@@ -22,7 +22,7 @@ class AdvertiseController extends Controller
         'home-005',
         'home-006',
         'sticky-all',
-        'sticky-mobile',
+        'position_fixed_mobile',
         'sticky-bar',
         'modal-all',
         'modal-mobile',
@@ -70,6 +70,7 @@ class AdvertiseController extends Controller
         $advertise->type = $request['type'];
         $advertise->slug = substr(hash('sha256', 'abcdefghijklmnop1234567890' . strtoupper('abcdefghijklmnop1234567890')), 0, 4);
         $advertise->state = $request['state'];
+        $advertise->mobile_only = ($request->has('mobile_only')) ? $request['mobile_only'] : 0;
         $advertise->just_admin = $request['just_admin'];
         $advertise->expires_at = $request['expires_at'];
         $advertise->save();
@@ -110,7 +111,6 @@ class AdvertiseController extends Controller
             'socket' => 'required',
             'type' => 'required',
             'state' => 'required',
-            'just_admin' => 'required',
             'expires_at' => 'required',
         ]);
         $advertise = Advertise::find($id);
@@ -122,6 +122,7 @@ class AdvertiseController extends Controller
         $advertise->type = $request['type'];
         $advertise->slug = substr(hash('sha256', 'abcdefghijklmnop1234567890' . strtoupper('abcdefghijklmnop1234567890')), 0, 4);
         $advertise->state = $request['state'];
+        $advertise->mobile_only = ($request->has('mobile_only')) ? $request['mobile_only'] : 0;
         $advertise->just_admin = $request['just_admin'];
         $advertise->expires_at = $request['expires_at'];
         $advertise->save();

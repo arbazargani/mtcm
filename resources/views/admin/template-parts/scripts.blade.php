@@ -63,3 +63,25 @@
 
     }
 </script>
+
+{{-- Jquery --}}
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    
+{{-- Persian Datepicker --}}
+<!-- dependes on jquery -->
+<script src="https://unpkg.com/persian-date@1.1.0/dist/persian-date.min.js"></script>
+<script src="https://unpkg.com/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".datepicker").pDatepicker({
+            format: 'YYYY-MM-DD H:m:s',
+            calendar:{
+                persian: {
+                    locale: 'fa'
+                }
+            }
+        });
+    });
+</script>

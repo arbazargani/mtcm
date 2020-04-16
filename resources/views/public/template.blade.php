@@ -4,6 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="generator" content="Mamooth CMS" />
 		<meta name="Development" content="Alireza Bazargani." />
 		<meta name="author" content="Alireza Bazargani" />
 
@@ -101,7 +102,17 @@
 			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 			}
 		</script>
-
+		<!-- Advertise socket - position fixed -->
+			@if(count($advertises) > 0)
+					@foreach($advertises->where('socket', 'position_fixed_mobile')->all() as $advertise)
+							@if($advertise->just_admin && !Auth::check())
+									@break
+							@else
+									<div @if($advertise->mobile_only) class="uk-hidden@s" @endif style="z-index: 111; position: fixed; bottom: 0; width: 100%;">{!! $advertise->content !!}</div>
+							@endif
+					@endforeach
+			@endif
+		<!-- Advertise socket - position fixed -->
 		@include('public.template-parts.footer')
 		@include('public.template-parts.scripts')
 </body>
