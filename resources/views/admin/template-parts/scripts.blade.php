@@ -1,8 +1,8 @@
-{{-- jquery --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{{-- Jquery --}}
+<script src="{{ asset('assets/js/jquery-3.5.0.min.js') }}"></script>
 
-{{-- tinymce editor --}}
-<script src="https://cdn.tiny.cloud/1/b3zbxrwztsjum71vs51caf64xuyitiqpxu3irnfb1i7qgusn/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+{{-- TinyMCE --}}
+<script src="{{ asset('assets/js/tinymce.min.js') }}" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
         selector:'#content',
@@ -29,12 +29,13 @@
 
 
 
-{{-- google charts --}}
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{{-- Google Charts --}}
+<script src="{{ asset('assets/js/loader.js') }}"></script>
 
 {{-- select2 js --}}
-<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" />
+<script src="{{ asset('assets/js/select2.min.js') }}"></script>
+
 <style>
     li.select2-selection__choice {
         color: #727272;
@@ -63,9 +64,6 @@
 
     }
 </script>
-
-{{-- Jquery --}}
-<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     
 {{-- Persian Datepicker --}}
 <!-- dependes on jquery -->
